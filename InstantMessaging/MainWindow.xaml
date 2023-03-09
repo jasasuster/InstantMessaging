@@ -1,0 +1,107 @@
+﻿<Window x:Class="InstantMessaging.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InstantMessaging"
+        mc:Ignorable="d"
+        Background="#1e2124"
+        ResizeMode="CanResizeWithGrip"
+        Title="ChatApp" Height="650" Width="1200">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="Toolbar" Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Menu Grid.Row="0" Grid.ColumnSpan="2" Background="#1e2124" VerticalAlignment="Center" Margin="5 0 0 0" Foreground="White">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" Foreground="Black"/>
+                <MenuItem Header="_Open" Foreground="Black"/>
+                <Separator />
+                <MenuItem Header="_Exit" Foreground="Black">
+                    <MenuItem.Icon>
+                        <Image Source="./Icons/close.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+
+        <Grid Grid.Row="1" Background="#282b30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="2"/>
+                <RowDefinition/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Content="Contacts" FontSize="22" FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Gray"/>
+
+            <Border Grid.Row="1" Background="#1e2124" VerticalAlignment="Bottom" Height="2"/>
+            
+            <ListView Grid.Row="2" BorderThickness="0"
+                      Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TextBlock}, Path=Background}"
+                      Foreground="White"
+                      Name="LV_Contacts" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+
+            <DockPanel Grid.Row="3" VerticalAlignment="Bottom" Background="#1e2124" Height="50">
+                <Image DockPanel.Dock="Left" Margin="5 5 5 5" 
+                   Source="/Icons/user.png"/>
+                <Label Margin="0 5 5 5" DockPanel.Dock="Right" Content="Username" HorizontalAlignment="Right" VerticalAlignment="Center"
+                   FontWeight="SemiBold" Foreground="Gray" FontSize="20"/>
+            </DockPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1" Background="#36393e">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="2"/>
+                <RowDefinition/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+
+            <DockPanel Grid.Row="0" Margin="0 5 0 5" Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TextBlock}, Path=Background}">
+                <Image Margin="100 2 5 2"
+                   Source="/Icons/user.png"/>
+                <Label Content="Contact's username" Margin="10 0 100 0" VerticalAlignment="Center"
+                   FontWeight="SemiBold" Foreground="Gray" FontSize="20"/>
+            </DockPanel>
+
+            <Border Grid.Row="1" Background="#282b30" VerticalAlignment="Bottom" Height="2"/>
+
+            <!--<ListView Grid.Row="1" Background="Gray"/>-->
+            <StackPanel Grid.Row="2" Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Margin="10 5 10 0">
+                    <Image Source="/Icons/user.png" Width="25" Height="25"/>
+                    <TextBlock Margin="5 2 5 2" TextWrapping="Wrap" Foreground="White" HorizontalAlignment="Left">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam commodo, nulla nec interdum imperdiet, ipsum tellus placerat felis, eu tincidunt dui sapien in sem. In non congue ligula.
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+
+            <Grid Grid.Row="3" Background="#36393e">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0" Grid.ColumnSpan="2" Height="50" Text="Message @username" Margin="10 0 10 0" Foreground="Gray" Background="#424549">
+                </TextBox>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 10 10">
+                    <Image Width="25" Height="25" Margin="2 2 10 2" Source="/Icons/emoji.png"/>
+                    <Image Width="25" Height="25" Margin="2 2 5 2" Source="/Icons/send.png"/>
+                </StackPanel>
+
+
+            </Grid>
+        </Grid>
+
+    </Grid>
+</Window>
