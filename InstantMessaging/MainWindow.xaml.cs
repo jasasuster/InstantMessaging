@@ -1,5 +1,7 @@
-﻿using System;
+﻿using InstantMessaging.MVVM.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +22,19 @@ namespace InstantMessaging
     /// </summary>
     public partial class MainWindow : Window
     {
+        ObservableCollection<ContactModel> Contacts = new ObservableCollection<ContactModel>();
+        ContactModel? SelectedContact = null;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            Contacts.Add(new ContactModel("user1", "user.png"));
+            Contacts.Add(new ContactModel("user2", "user.png"));
+            Contacts.Add(new ContactModel("user3", "user.png"));
+
+            LV_Contacts.ItemsSource = Contacts;
+            CurrentlySelected.DataContext = SelectedContact;
         }
     }
 }

@@ -8,20 +8,36 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\add.png" />
     <None Remove="Icons\close.png" />
+    <None Remove="Icons\delete.png" />
+    <None Remove="Icons\edit.png" />
     <None Remove="Icons\emoji.png" />
     <None Remove="Icons\send.png" />
+    <None Remove="Icons\settings.png" />
     <None Remove="Icons\user.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Icons\add.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Icons\close.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\delete.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\edit.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icons\emoji.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icons\send.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\settings.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icons\user.png">

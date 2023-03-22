@@ -22,12 +22,33 @@
 
         <Menu Grid.Row="0" Grid.ColumnSpan="2" Background="#1e2124" VerticalAlignment="Center" Margin="5 0 0 0" Foreground="White">
             <MenuItem Header="_File">
-                <MenuItem Header="_New" Foreground="Black"/>
-                <MenuItem Header="_Open" Foreground="Black"/>
-                <Separator />
                 <MenuItem Header="_Exit" Foreground="Black">
                     <MenuItem.Icon>
                         <Image Source="./Icons/close.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Contacts">
+                <MenuItem Header="_Add" Foreground="Black">>
+                    <MenuItem.Icon>
+                        <Image Source="./Icons/add.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Delete" Foreground="Black">>
+                    <MenuItem.Icon>
+                        <Image Source="./Icons/delete.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Edit" Foreground="Black">>
+                    <MenuItem.Icon>
+                        <Image Source="./Icons/edit.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Tools">
+                <MenuItem Header="_Settings" Foreground="Black">>
+                    <MenuItem.Icon>
+                        <Image Source="./Icons/settings.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
@@ -48,7 +69,9 @@
             <ListView Grid.Row="2" BorderThickness="0"
                       Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TextBlock}, Path=Background}"
                       Foreground="White"
-                      Name="LV_Contacts" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+                      Name="LV_Contacts"
+                      ItemsSource="{Binding Contacts}"
+                      ItemContainerStyle="{StaticResource ContactInfo}"/>
 
             <DockPanel Grid.Row="3" VerticalAlignment="Bottom" Background="#1e2124" Height="50">
                 <Image DockPanel.Dock="Left" Margin="5 5 5 5" 
@@ -58,7 +81,7 @@
             </DockPanel>
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="1" Background="#36393e">
+        <Grid Name="CurrentlySelected" DataContext="{Binding SelectedContact}" Grid.Row="1" Grid.Column="1" Background="#36393e">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="2"/>
