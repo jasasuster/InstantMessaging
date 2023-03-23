@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Background="#1e2124"
         ResizeMode="CanResizeWithGrip"
-        Title="ChatApp" Height="650" Width="1200">
+        Title="ChatApp" Height="650" Width="1200" MinHeight="325" MinWidth="600">
 
     <Grid>
         <Grid.RowDefinitions>
