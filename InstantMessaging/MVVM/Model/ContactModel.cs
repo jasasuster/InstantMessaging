@@ -2,28 +2,36 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace InstantMessaging.MVVM.Model
 {
     class ContactModel : INotifyPropertyChanged
     {
-        public ContactModel(string username, string imageSource) { 
+        public ContactModel(string username, string imageSource) {
             Username = username;
-            ImageSource = "/Icons/" + imageSource;
-            LastMessage = "test";
-            joined = DateTime.Now;
-            isActive = false;
-            Messages = new ObservableCollection<MessageModel>();
+            ImageSource = imageSource;
+            Joined = DateTime.Now;
+            IsActive = false;
+            Messages = new ObservableCollection<MessageModel>
+            {
+                new MessageModel(username, "/Icons/user.png", "test message 1"),
+                new MessageModel(username, "/Icons/user.png", "test message 2"),
+                new MessageModel(username, "/Icons/user.png", "test message 3")
+            };
+            LastMessage = Messages.Last();
         }
 
         private string username;
         private string imageSource;
-        private string lastMessage;
+        private MessageModel lastMessage;
         private DateTime joined;
         private bool isActive;
+        private ObservableCollection<MessageModel> messages;
 
         public string Username 
         { 
@@ -39,22 +47,43 @@ namespace InstantMessaging.MVVM.Model
             get { return imageSource; }
             set
             {
-                imageSource = value;
-                NotifyPropertyChanged("ImageSource");
+                if(File.Exists(value))
+                {
+                    imageSource = value;
+                    NotifyPropertyChanged("ImageSource");
+                }
             }
         }
-        public string LastMessage 
+        public MessageModel LastMessage 
         {
             get { return lastMessage; }
             set
             {
-                lastMessage = value;
-                NotifyPropertyChanged("LastMessage");
+                if (value != null)
+                {
+                    if (lastMessage != null)
+                    {
+                        if(lastMessage.Time < value.Time)
+                        {
+                            lastMessage = value;
+                            NotifyPropertyChanged("LastMessage");
+                        }
+                    }
+                    else
+                    {
+                        lastMessage = value;
+                        NotifyPropertyChanged("LastMessage");
+                    }
+                }
             }
         }
-        public DateTime LastJoined
+        public DateTime Joined
         {
-            get { return joined;  }
+            get { return joined; }
+            private set
+            {
+                joined = value;
+            }
         }
 
         public bool IsActive
@@ -67,11 +96,19 @@ namespace InstantMessaging.MVVM.Model
             }
         }
 
-        private ObservableCollection<MessageModel> Messages { get; set; }
+        public ObservableCollection<MessageModel> Messages 
+        { 
+            get { return messages; }
+            set
+            {
+                messages = value;
+                lastMessage = messages[messages.Count - 1];
+            }
+        }
 
         public override string ToString()
         {
-            return String.Format("{0}", Username);
+            return String.Format("Username: {0}\nJoined {1}", Username, Joined.ToString("dd.MM.yyyy HH:mm"));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

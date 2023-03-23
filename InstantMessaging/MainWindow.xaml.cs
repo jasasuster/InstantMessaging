@@ -29,12 +29,44 @@ namespace InstantMessaging
         {
             InitializeComponent();
 
-            Contacts.Add(new ContactModel("user1", "user.png"));
-            Contacts.Add(new ContactModel("user2", "user.png"));
-            Contacts.Add(new ContactModel("user3", "user.png"));
+            Contacts.Add(new ContactModel("user1", "/Icons/user.png"));
+            Contacts.Add(new ContactModel("user2", "/Icons/user.png"));
+            Contacts.Add(new ContactModel("user3", "/Icons/user.png"));
 
             LV_Contacts.ItemsSource = Contacts;
             CurrentlySelected.DataContext = SelectedContact;
+        }
+
+        void LV_Contacts_DoubleClick(object sender, RoutedEventArgs e)
+        {
+            if(SelectedContact != null)
+            {
+                string messageBoxText = SelectedContact.ToString();
+                string caption = "Info";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Information;
+                MessageBoxResult result;
+
+                result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+            }
+        }
+
+        private void LV_Contacts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(LV_Contacts.SelectedItem is ContactModel contactModel)
+            {
+                SelectedContact = contactModel;
+            }
+            else
+            {
+                SelectedContact = null;
+            }
+            CurrentlySelected.DataContext = SelectedContact;
+        }
+
+        void Menu_Exit(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

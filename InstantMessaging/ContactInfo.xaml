@@ -17,12 +17,12 @@
                 <ControlTemplate TargetType="ListViewItem">
                     <Border Background="{TemplateBinding Background}" Height="50" CornerRadius="4" Margin="8 2 8 2">
                         <StackPanel Orientation="Horizontal" Margin="5 0 0 0">                            
-                            <Border Width="30" Height="30" Background="#7289da" CornerRadius="25">
-                                <Image Source="{Binding ImageSource}" x:Name="Icon" Width="30" Height="30"/>
+                            <Border Width="40" Height="40" Background="#7289da" CornerRadius="25">
+                                <Image Source="{Binding ImageSource}" x:Name="Icon" Width="40" Height="40"/>
                             </Border>
                             <StackPanel Orientation="Vertical">
-                                <Label Content="{Binding Username}" Foreground="White"/>
-                                <Label Content="{Binding LastMessage}" Foreground="White"/>
+                                <Label Content="{Binding Username}" Foreground="White" FontSize="15" />
+                                <TextBlock Text="{Binding LastMessage.Message}" Foreground="LightGray" Padding="5 0 0 0" Width="100" TextWrapping="NoWrap"/>
                             </StackPanel>
                         </StackPanel>
                     </Border>

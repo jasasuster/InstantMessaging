@@ -8,12 +8,26 @@ namespace InstantMessaging.MVVM.Model
 {
     class MessageModel
     {
-        private string Username { get; set; }
-        private string UsernameColor { get; set; }
-        private string ImageSource { get; set; }
-        private string Message { get; set; }
-        private DateTime Time { get; set; }
-        private bool IsMine { get; set; }
-        private bool? FirstMessage { get; set; }
+        public MessageModel(string username, string imageSource, string message) { 
+            Username = username;
+            ImageSource = imageSource;
+            Message = message;
+            Time = DateTime.Now;
+        }
+
+        private string username;
+        private string imageSource;
+        private string message;
+        private DateTime time;
+
+        public string Username { get; private set; }
+        public string ImageSource { get; set; }
+        public string Message { get; set; }
+        public DateTime Time { get; set; }
+
+        public string TimeToString
+        {
+            get { return time.ToString("ddd d MMM h:mm tt"); }
+        }
     }
 }
