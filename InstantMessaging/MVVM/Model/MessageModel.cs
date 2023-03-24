@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,10 +21,57 @@ namespace InstantMessaging.MVVM.Model
         private string message;
         private DateTime time;
 
-        public string Username { get; private set; }
-        public string ImageSource { get; set; }
-        public string Message { get; set; }
-        public DateTime Time { get; set; }
+        public string Username
+        {
+            get { return username; }
+            set
+            {
+                if (value == "" || value.Trim().Length > 15)
+                {
+                    throw new ArgumentException("Value is either an empty string or too long");
+                }
+                username = value.Trim();
+            }
+        }
+        public string ImageSource 
+        { 
+            get { return imageSource; }
+            set
+            {
+                if (File.Exists(value))
+                {
+                    imageSource = value;
+                }
+                //else
+                //{
+                //    throw new ArgumentException("File does not exist in the system");
+                //}
+            }
+        }
+        public string Message 
+        { 
+            get { return message; }
+            set 
+            {
+                if (value == "")
+                {
+                    throw new ArgumentException("Message value is an empty string");
+                }
+                message = value; 
+            }
+        }
+        public DateTime Time 
+        { 
+            get { return time; }
+            set
+            {
+                if (DateTime.Compare(value, DateTime.Now) > 0)
+                {
+                    throw new ArgumentException("DateTime value cannot be in the future");
+                }
+                time = value;
+            }
+        }
 
         public string TimeToString
         {

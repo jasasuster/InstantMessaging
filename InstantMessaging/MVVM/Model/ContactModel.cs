@@ -19,9 +19,9 @@ namespace InstantMessaging.MVVM.Model
             IsActive = false;
             Messages = new ObservableCollection<MessageModel>
             {
-                new MessageModel(username, "/Icons/user.png", "test message 1"),
-                new MessageModel(username, "/Icons/user.png", "test message 2"),
-                new MessageModel(username, "/Icons/user.png", "test message 3")
+                new MessageModel(username, imageSource, "test message 1"),
+                new MessageModel(username, imageSource, "test message 2"),
+                new MessageModel(username, imageSource, "test message 3")
             };
             LastMessage = Messages.Last();
         }
@@ -38,7 +38,11 @@ namespace InstantMessaging.MVVM.Model
             get { return username; }
             set
             {
-                username = value;
+                if (value == "" || value.Trim().Length > 15)
+                {
+                    throw new ArgumentException("Value is either an empty string or too long");
+                }
+                username = value.Trim();
                 NotifyPropertyChanged("Username");
             }
         }
@@ -47,11 +51,15 @@ namespace InstantMessaging.MVVM.Model
             get { return imageSource; }
             set
             {
-                if(File.Exists(value))
+                if (File.Exists(value))
                 {
                     imageSource = value;
                     NotifyPropertyChanged("ImageSource");
                 }
+                //else
+                //{
+                //    throw new ArgumentException("File does not exist in the system");
+                //}
             }
         }
         public MessageModel LastMessage 
@@ -75,6 +83,10 @@ namespace InstantMessaging.MVVM.Model
                         NotifyPropertyChanged("LastMessage");
                     }
                 }
+                else
+                {
+                    throw new ArgumentException("Value was null");
+                }
             }
         }
         public DateTime Joined
@@ -91,19 +103,20 @@ namespace InstantMessaging.MVVM.Model
             get { return isActive; }
             set
             {
-                isActive = value;
-                NotifyPropertyChanged("IsActive");
+                if(IsActive != value)
+                {
+                    isActive = value;
+                    NotifyPropertyChanged("IsActive");
+                }
             }
         }
 
-        public ObservableCollection<MessageModel> Messages 
-        { 
-            get { return messages; }
-            set
-            {
-                messages = value;
-                lastMessage = messages[messages.Count - 1];
-            }
+        public ObservableCollection<MessageModel> Messages { get; set; }
+
+        public void AddMessage(string message)
+        {
+            messages.Add(new MessageModel(this.username, this.imageSource, message));
+            NotifyPropertyChanged("Messages");
         }
 
         public override string ToString()
