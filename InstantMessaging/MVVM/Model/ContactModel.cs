@@ -14,14 +14,14 @@ namespace InstantMessaging.MVVM.Model
     {
         public ContactModel(string username, string imageSource) {
             Username = username;
-            ImageSource = imageSource;
+            this.imageSource = imageSource;
             Joined = DateTime.Now;
             IsActive = false;
             Messages = new ObservableCollection<MessageModel>
             {
-                new MessageModel(username, imageSource, "test message 1"),
-                new MessageModel(username, imageSource, "test message 2"),
-                new MessageModel(username, imageSource, "test message 3")
+                new MessageModel(username, "/Icons/user.png", "test message 1"),
+                new MessageModel(username, "/Icons/user.png", "test message 2"),
+                new MessageModel(username, "/Icons/user.png", "test message 3")
             };
             LastMessage = Messages.Last();
         }
@@ -56,10 +56,10 @@ namespace InstantMessaging.MVVM.Model
                     imageSource = value;
                     NotifyPropertyChanged("ImageSource");
                 }
-                //else
-                //{
-                //    throw new ArgumentException("File does not exist in the system");
-                //}
+                else
+                {
+                    throw new ArgumentException("File does not exist in the system");
+                }
             }
         }
         public MessageModel LastMessage 

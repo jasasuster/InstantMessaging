@@ -16,7 +16,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ListViewItem">
                     <Border Background="{TemplateBinding Background}" Height="50" CornerRadius="4" Margin="8 2 8 2">
-                        <StackPanel Orientation="Horizontal" Margin="5 0 0 0">                            
+                        <StackPanel Orientation="Horizontal" Margin="5 0 0 0">
                             <Border Width="40" Height="40" Background="#7289da" CornerRadius="25">
                                 <Image Source="{Binding ImageSource}" x:Name="Icon" Width="40" Height="40"/>
                             </Border>

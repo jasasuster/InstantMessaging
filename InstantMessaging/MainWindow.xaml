@@ -9,10 +9,6 @@
         ResizeMode="CanResizeWithGrip"
         Title="ChatApp" Height="650" Width="1200" MinHeight="325" MinWidth="600">
 
-    <Window.Resources>
-        <BitmapImage x:Key="DefaultUserImage" UriSource="/Icons/user.png"/>
-    </Window.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition x:Name="Toolbar" Height="30"/>
@@ -33,17 +29,17 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Contacts">
-                <MenuItem Header="_Add" Foreground="Black">
+                <MenuItem Header="_Add" Foreground="Black" Command="{Binding AddNewContactCommand}">
                     <MenuItem.Icon>
                         <Image Source="./Icons/add.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="_Delete" Foreground="Black">
+                <MenuItem Header="_Delete" Foreground="Black" Command="{Binding RemoveContactCommand}">
                     <MenuItem.Icon>
                         <Image Source="./Icons/delete.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="_Edit" Foreground="Black">
+                <MenuItem Header="_Edit" Foreground="Black" Command="{Binding EditContactCommand}">
                     <MenuItem.Icon>
                         <Image Source="./Icons/edit.png"/>
                     </MenuItem.Icon>
@@ -77,7 +73,7 @@
                       ItemsSource="{Binding Contacts}"
                       ItemContainerStyle="{StaticResource ContactInfo}"
                       MouseDoubleClick="LV_Contacts_DoubleClick"
-                      SelectionChanged="LV_Contacts_SelectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+                      SelectedItem="{Binding SelectedContact}" d:ItemsSource="{d:SampleData ItemCount=5}"/>
 
             <DockPanel Grid.Row="3" VerticalAlignment="Bottom" Background="#1e2124" Height="50">
                 <Image DockPanel.Dock="Left" Margin="5 5 5 5" 
@@ -87,7 +83,7 @@
             </DockPanel>
         </Grid>
 
-        <Grid Name="CurrentlySelected" DataContext="{Binding G_SelectedContact}" Grid.Row="1" Grid.Column="1" Background="#36393e">
+        <Grid Name="CurrentlySelected" DataContext="{Binding SelectedContact}" Grid.Row="1" Grid.Column="1" Background="#36393e">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="2"/>
@@ -97,7 +93,7 @@
 
             <DockPanel Grid.Row="0" Margin="0 5 0 5" Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TextBlock}, Path=Background}">
                 <Image Margin="100 2 5 2"
-                   Source="{Binding ImageSource, FallbackValue={StaticResource DefaultUserImage}, TargetNullValue={StaticResource DefaultUserImage}}"/>
+                   Source="{Binding ImageSource}"/>
                 <TextBlock Margin="10 0 100 0" VerticalAlignment="Center"
                    FontWeight="SemiBold" Foreground="Gray" FontSize="20" Text="{Binding Username, FallbackValue='Username'}"/>
             </DockPanel>

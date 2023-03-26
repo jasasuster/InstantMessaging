@@ -11,7 +11,7 @@ namespace InstantMessaging.MVVM.Model
     {
         public MessageModel(string username, string imageSource, string message) { 
             Username = username;
-            ImageSource = imageSource;
+            this.imageSource = imageSource;
             Message = message;
             Time = DateTime.Now;
         }
@@ -42,10 +42,10 @@ namespace InstantMessaging.MVVM.Model
                 {
                     imageSource = value;
                 }
-                //else
-                //{
-                //    throw new ArgumentException("File does not exist in the system");
-                //}
+                else
+                {
+                    throw new ArgumentException("File does not exist in the system");
+                }
             }
         }
         public string Message 
