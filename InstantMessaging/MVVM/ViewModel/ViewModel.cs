@@ -59,7 +59,6 @@ namespace InstantMessaging.MVVM.ViewModel
         private void AddNewContact(object parameter)
         {
             Contacts.Add(new ContactModel("new user", "/Icons/user.png"));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Contacts)));
         }
         private void RemoveContact(object parameter)
         {
@@ -67,7 +66,6 @@ namespace InstantMessaging.MVVM.ViewModel
             {
                 Contacts.Remove(SelectedContact);
                 SelectedContact = null;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Contacts)));
             }
             else
             {
@@ -78,8 +76,7 @@ namespace InstantMessaging.MVVM.ViewModel
         {
             if (SelectedContact != null)
             {
-                SelectedContact.Username = "edited username";
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Contacts)));
+                SelectedContact.Username = "edited user";
             }
             else
             {

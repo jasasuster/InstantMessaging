@@ -16,6 +16,7 @@
     <None Remove="Icons\send.png" />
     <None Remove="Icons\settings.png" />
     <None Remove="Icons\user.png" />
+    <None Remove="user.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,9 +41,12 @@
     <Resource Include="Icons\settings.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Icons\user.png">
+    <Content Include="Icons\user.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
+    <Content Include="user.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

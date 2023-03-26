@@ -34,7 +34,7 @@ namespace InstantMessaging.MVVM.Model
             get { return imageSource; }
             set
             {
-                if (File.Exists(value))
+                if (string.IsNullOrEmpty(value) && File.Exists(value))
                 {
                     imageSource = value;
                 }
