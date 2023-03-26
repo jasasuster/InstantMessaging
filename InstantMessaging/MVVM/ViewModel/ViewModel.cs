@@ -23,6 +23,7 @@ namespace InstantMessaging.MVVM.ViewModel
             }
         }
 
+        public RelayCommand ContactDoubleClickoCommand { get; }
         public RelayCommand AddNewContactCommand { get; }
         public RelayCommand RemoveContactCommand { get; }
         public RelayCommand EditContactCommand { get; }
@@ -35,12 +36,14 @@ namespace InstantMessaging.MVVM.ViewModel
                 new ContactModel("user2", "/Icons/user.png"),
                 new ContactModel("user3", "/Icons/user.png")
             };
+
+            ContactDoubleClickoCommand = new RelayCommand(ContactDoubleCLick);
             AddNewContactCommand = new RelayCommand(AddNewContact);
             RemoveContactCommand = new RelayCommand(RemoveContact);
             EditContactCommand = new RelayCommand(EditContact);
         }
 
-        void LV_Contacts_DoubleClick(object sender, RoutedEventArgs e)
+        void ContactDoubleCLick(object parameter)
         {
             if (SelectedContact != null)
             {
