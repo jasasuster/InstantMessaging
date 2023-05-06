@@ -1,4 +1,5 @@
 ﻿using InstantMessaging.MVVM.Model;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
@@ -23,24 +24,50 @@ namespace InstantMessaging.MVVM.ViewModel
             }
         }
 
+        private string _message;
+        public string Message
+        {
+            get { return _message; }
+            set
+            {
+                _message = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Message)));
+            }
+        }
+
+        string[] Replies =
+        {
+            "The voices won't stop, they just keep getting louder.",
+            "I can't trust anyone, they're all out to get me.",
+            "I feel like I'm trapped in my own mind and I can't escape.",
+            "I see things that aren't really there, it's like a waking nightmare.",
+            "I can't sleep, my thoughts won't let me.",
+            "Why bother trying, everything is just going to end in failure anyway.",
+            "I feel like I'm stuck in a never-ending cycle of pain and despair."
+        };
+
         public RelayCommand ContactDoubleClickoCommand { get; }
         public RelayCommand AddNewContactCommand { get; }
         public RelayCommand RemoveContactCommand { get; }
         public RelayCommand EditContactCommand { get; }
+        public RelayCommand SendMessageCommand { get; }
 
         public ViewModel()
         {
             Contacts = new ObservableCollection<ContactModel>
             {
-                new ContactModel("user1", "/Icons/user.png"),
-                new ContactModel("user2", "/Icons/user.png"),
-                new ContactModel("user3", "/Icons/user.png")
+                new ContactModel("user1", "/Images/user1.png"),
+                new ContactModel("user2", "/Images/user2.png"),
+                new ContactModel("user3", "/Images/user3.png")
             };
+
+            Message = "";
 
             ContactDoubleClickoCommand = new RelayCommand(ContactDoubleCLick);
             AddNewContactCommand = new RelayCommand(AddNewContact);
             RemoveContactCommand = new RelayCommand(RemoveContact);
             EditContactCommand = new RelayCommand(EditContact);
+            SendMessageCommand = new RelayCommand(SendMessage);
         }
 
         void ContactDoubleCLick(object parameter)
@@ -58,7 +85,7 @@ namespace InstantMessaging.MVVM.ViewModel
 
         private void AddNewContact(object parameter)
         {
-            Contacts.Add(new ContactModel("new user", "/Icons/user.png"));
+            Contacts.Add(new ContactModel("new user", "/Images/default_user.png"));
         }
         private void RemoveContact(object parameter)
         {
@@ -92,6 +119,40 @@ namespace InstantMessaging.MVVM.ViewModel
             MessageBoxImage icon = MessageBoxImage.Warning;
 
             MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.OK);
+        }
+
+        private void SendMessage(object parameter)
+        {
+            if (SelectedContact != null)
+            {
+                // add message
+                SelectedContact.AddMessage("Jasa", "/Images/user4.png", Message);
+
+                // random reply
+                Random random = new Random();
+                int index = random.Next(Replies.Length); // generate a random index within the bounds of the array
+                string randomElement = Replies[index];
+                SelectedContact.AddMessage(SelectedContact.Username, SelectedContact.ImageSource, randomElement);
+            }
+
+            Message = "";
+        }
+
+        private void OnSendMessage(object sender, string senderName, string message)
+        {
+            if (SelectedContact != null)
+            {
+                // add message
+                SelectedContact.AddMessage(senderName, "/Images/user4.png", message);
+
+                // random reply
+                Random random = new Random();
+                int index = random.Next(Replies.Length); // generate a random index within the bounds of the array
+                string randomElement = Replies[index];
+                SelectedContact.AddMessage(SelectedContact.Username, SelectedContact.ImageSource, randomElement);
+            }
+
+            Message = "";
         }
     }
 }

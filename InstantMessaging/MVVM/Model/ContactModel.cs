@@ -15,9 +15,9 @@ namespace InstantMessaging.MVVM.Model
             IsActive = false;
             Messages = new ObservableCollection<MessageModel>
             {
-                new MessageModel(username, "/Icons/user.png", "test message 1"),
-                new MessageModel(username, "/Icons/user.png", "test message 2"),
-                new MessageModel(username, "/Icons/user.png", "test message 3")
+                new MessageModel(username, imageSource, "test message 1"),
+                new MessageModel(username, imageSource, "test message 2"),
+                new MessageModel(username, imageSource, "test message 3")
             };
             LastMessage = Messages.Last();
         }
@@ -27,7 +27,6 @@ namespace InstantMessaging.MVVM.Model
         private MessageModel lastMessage;
         private DateTime joined;
         private bool isActive;
-        private ObservableCollection<MessageModel> messages;
 
         public string Username 
         { 
@@ -109,10 +108,11 @@ namespace InstantMessaging.MVVM.Model
 
         public ObservableCollection<MessageModel> Messages { get; set; }
 
-        public void AddMessage(string message)
+        public void AddMessage(string username, string imageSource, string message)
         {
-            messages.Add(new MessageModel(this.username, this.imageSource, message));
+            Messages.Add(new MessageModel(username, imageSource, message));
             NotifyPropertyChanged("Messages");
+            LastMessage = Messages.Last();
         }
 
         public override string ToString()
