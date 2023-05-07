@@ -3,16 +3,36 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Xml.Serialization;
 
 namespace InstantMessaging.MVVM.Model
 {
-    class ContactModel : INotifyPropertyChanged
+    public class ContactModel : INotifyPropertyChanged
     {
         public ContactModel(string username, string imageSource) {
             Username = username;
             this.imageSource = imageSource;
             Joined = DateTime.Now;
             Status = GetRandomStatus();
+            Messages = new ObservableCollection<MessageModel>
+            {
+                new MessageModel(username, "./Icons/user.png", "test message 1"),
+                new MessageModel(username, "./Icons/user.png", "test message 2"),
+                new MessageModel(username, "./Icons/user.png", "test message 3")
+            };
+            LastMessage = Messages.Last();
+        }
+
+        public ContactModel(string username, string firstName, string lastName, string email, DateTime birthdate, string imageSource)
+        {
+            Username = username;
+            this.imageSource = imageSource;
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            Birthdate = birthdate;
+            Joined = DateTime.Now;
+            IsActive = false;
             Messages = new ObservableCollection<MessageModel>
             {
                 new MessageModel(username, imageSource, "test message 1"),
@@ -22,7 +42,13 @@ namespace InstantMessaging.MVVM.Model
             LastMessage = Messages.Last();
         }
 
+        public ContactModel() { }
+
         private string username;
+        private string firstName;
+        private string lastName;
+        private string email;
+        private DateTime birthdate;
         private string imageSource;
         private MessageModel lastMessage;
         private DateTime joined;
@@ -39,6 +65,10 @@ namespace InstantMessaging.MVVM.Model
                 }
                 username = value.Trim();
                 NotifyPropertyChanged("Username");
+                //foreach (MessageModel message in Messages)
+                //{
+                //    message.Username = username;
+                //}
             }
         }
         public string ImageSource 
@@ -87,7 +117,7 @@ namespace InstantMessaging.MVVM.Model
         public DateTime Joined
         {
             get { return joined; }
-            private set
+            set
             {
                 joined = value;
             }
@@ -102,6 +132,58 @@ namespace InstantMessaging.MVVM.Model
                 {
                     status = value;
                     NotifyPropertyChanged("Status");
+                }
+            }
+        }
+
+        public string FirstName
+        {
+            get { return firstName; }
+            set
+            {
+                if(FirstName != value && !string.IsNullOrEmpty(value))
+                {
+                    firstName = value;
+                    NotifyPropertyChanged("FirstName");
+                }
+            }
+        }
+
+        public string LastName
+        {
+            get { return lastName; }
+            set
+            {
+                if(LastName != value && !string.IsNullOrEmpty(value))
+                {
+                    lastName = value;
+                    NotifyPropertyChanged("LastName");
+                }
+            }
+        }
+
+        public string Email
+        {
+            get { return email; }
+            set
+            {
+                if(Email != value && !string.IsNullOrEmpty(value))
+                {
+                    email = value;
+                    NotifyPropertyChanged("Email");
+                }
+            }
+        }
+
+        public DateTime Birthdate
+        {
+            get { return birthdate; }
+            set
+            {
+                if (Birthdate != value)
+                {
+                    birthdate = value;
+                    NotifyPropertyChanged("Birthdate");
                 }
             }
         }
@@ -130,6 +212,20 @@ namespace InstantMessaging.MVVM.Model
             }
         }
 
+        public void ExportToXML(string filename)
+        {
+            XmlSerializer serializer = new(typeof(ContactModel));
+            using var writer = new StreamWriter(filename);
+            serializer.Serialize(writer, this);
+        }
+
+        public static ObservableCollection<ContactModel> ImportFromXML(string filename)
+        {
+            XmlSerializer serializer = new(typeof(ContactModel));
+            using var reader = new StreamReader(filename);
+            return (ObservableCollection<ContactModel>)serializer.Deserialize(reader);
+        }    
+
         private string GetRandomStatus()
         {
             string[] statuses =
@@ -141,7 +237,7 @@ namespace InstantMessaging.MVVM.Model
 
             Random random = new Random();
             int index = random.Next(statuses.Length);
-            return statuses[index];
+
         }
     }
 }

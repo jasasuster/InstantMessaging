@@ -41,6 +41,22 @@
                         <Image Source="./Icons/close.png" />
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem
+                    Command="{Binding ExportCommand}"
+                    Foreground="Black"
+                    Header="_Export">
+                    <MenuItem.Icon>
+                        <Image Source="./Icons/add.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem
+                    Command="{Binding ImportCommand}"
+                    Foreground="Black"
+                    Header="_Import">
+                    <MenuItem.Icon>
+                        <Image Source="./Icons/add.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="_Contacts">
                 <MenuItem
@@ -69,7 +85,10 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Tools">
-                <MenuItem Foreground="Black" Header="_Settings">
+                <MenuItem
+                    Command="{Binding OpenSettingsCommand}"
+                    Foreground="Black"
+                    Header="_Settings">
                     <MenuItem.Icon>
                         <Image Source="./Icons/settings.png" />
                     </MenuItem.Icon>

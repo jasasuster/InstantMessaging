@@ -3,7 +3,7 @@ using System.IO;
 
 namespace InstantMessaging.MVVM.Model
 {
-    class MessageModel
+    public class MessageModel
     {
         public MessageModel(string username, string imageSource, string message) { 
             Username = username;
@@ -11,6 +11,8 @@ namespace InstantMessaging.MVVM.Model
             Message = message;
             Time = DateTime.Now;
         }
+
+        public MessageModel() { }
 
         private string username;
         private string imageSource;
@@ -27,21 +29,6 @@ namespace InstantMessaging.MVVM.Model
                     throw new ArgumentException("Value is either an empty string or too long");
                 }
                 username = value.Trim();
-            }
-        }
-        public string ImageSource 
-        { 
-            get { return imageSource; }
-            set
-            {
-                if (string.IsNullOrEmpty(value) && File.Exists(value))
-                {
-                    imageSource = value;
-                }
-                else
-                {
-                    throw new ArgumentException("File does not exist in the system");
-                }
             }
         }
         public string Message 
