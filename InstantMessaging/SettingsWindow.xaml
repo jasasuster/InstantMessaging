@@ -102,8 +102,7 @@
                             x:Name="ImageControl"
                             Width="50"
                             Height="50"
-                            Margin="5"
-                            Source="{Binding Image}" />
+                            Margin="5" />
                     </StackPanel>
 
                     <Button

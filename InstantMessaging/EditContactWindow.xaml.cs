@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using InstantMessaging.MVVM.Model;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,32 +18,10 @@ using System.Windows.Shapes;
 namespace InstantMessaging
 {
     /// <summary>
-    /// Interaction logic for SettingsWindow.xaml
+    /// Interaction logic for EditContactWindow.xaml
     /// </summary>
-    public partial class SettingsWindow : Window, INotifyPropertyChanged
+    public partial class EditContactWindow : Window, INotifyPropertyChanged
     {
-
-        public SettingsWindow()
-        {
-            InitializeComponent();
-
-            // Set the data context to this window
-            DataContext = this;
-
-            // Initialize the settings fields
-            Username = Settings.Default.Username;
-            Email = Settings.Default.Email;
-            FirstName = Settings.Default.FirstName;
-            LastName = Settings.Default.LastName;
-            Birthdate = Settings.Default.Birthdate;
-            ImagePath = Settings.Default.Image;
-            if(!string.IsNullOrEmpty(Settings.Default.Image))
-            {
-                Image = new BitmapImage(new Uri(Settings.Default.Image));
-            }
-            ErrorMessage = string.Empty;
-        }
-
         public event PropertyChangedEventHandler? PropertyChanged;
 
         void NotifyPropertyChanged(string Name)
@@ -53,13 +32,24 @@ namespace InstantMessaging
             }
         }
 
+        public bool contactChanged { get; set; }
+
+        public EditContactWindow()
+        {
+            InitializeComponent();
+
+            DataContext = this;
+        }
+
+
+
         private string _errorMessage;
         public string ErrorMessage
         {
             get { return _errorMessage; }
             set
             {
-                 _errorMessage = value;
+                _errorMessage = value;
                 NotifyPropertyChanged("ErrorMessage");
             }
         }
@@ -162,14 +152,13 @@ namespace InstantMessaging
                             ImageControl.Source = image;
                         }
                     }
-                    catch (Exception e)
-                    {
+                    catch (Exception e) 
+                    { 
                         ErrorMessage = "Image error: " + e.Message;
                     }
                 }
             }
         }
-
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
@@ -210,9 +199,19 @@ namespace InstantMessaging
 
             if (string.IsNullOrEmpty(ErrorMessage))
             {
-                DialogResult = true;
+                contactChanged = true;
                 Close();
             }
+        }
+
+        public void OnSelectedContactChange(ContactModel newSelected)
+        {
+            Username = newSelected.Username;
+            Email = newSelected.Email;
+            FirstName = newSelected.FirstName;
+            LastName = newSelected.LastName;
+            Birthdate = newSelected.Birthdate;
+            ImagePath = newSelected.ImageSource;
         }
     }
 }

@@ -14,9 +14,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
-using System.Diagnostics;
 
 namespace InstantMessaging
 {
@@ -123,17 +120,6 @@ namespace InstantMessaging
             }
         }
 
-        private ImageSource _image;
-        public ImageSource Image
-        {
-            get { return _image; }
-            set
-            {
-                _image = value;
-                ImageControl.Source = value;
-            }
-        }
-
         private string _imagePath;
         public string ImagePath
         {
@@ -142,10 +128,23 @@ namespace InstantMessaging
             {
                 if (_imagePath != value)
                 {
-                    _imagePath = value;
+                    try
+                    {
+                        _imagePath = value;
+                        if (value != null)
+                        {
+                            BitmapImage image = new BitmapImage(new Uri(value));
+                            ImageControl.Source = image;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        ErrorMessage = "Image error: " + e.Message;
+                    }
                 }
             }
         }
+
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();

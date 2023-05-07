@@ -3,10 +3,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Xml.Serialization;
 
 namespace InstantMessaging.MVVM.Model
 {
-    class ContactModel : INotifyPropertyChanged
+    public class ContactModel : INotifyPropertyChanged
     {
         public ContactModel(string username, string imageSource) {
             Username = username;
@@ -15,9 +16,9 @@ namespace InstantMessaging.MVVM.Model
             IsActive = false;
             Messages = new ObservableCollection<MessageModel>
             {
-                new MessageModel(username, "/Icons/user.png", "test message 1"),
-                new MessageModel(username, "/Icons/user.png", "test message 2"),
-                new MessageModel(username, "/Icons/user.png", "test message 3")
+                new MessageModel(username, "./Icons/user.png", "test message 1"),
+                new MessageModel(username, "./Icons/user.png", "test message 2"),
+                new MessageModel(username, "./Icons/user.png", "test message 3")
             };
             LastMessage = Messages.Last();
         }
@@ -41,6 +42,8 @@ namespace InstantMessaging.MVVM.Model
             LastMessage = Messages.Last();
         }
 
+        public ContactModel() { }
+
         private string username;
         private string firstName;
         private string lastName;
@@ -63,6 +66,10 @@ namespace InstantMessaging.MVVM.Model
                 }
                 username = value.Trim();
                 NotifyPropertyChanged("Username");
+                //foreach (MessageModel message in Messages)
+                //{
+                //    message.Username = username;
+                //}
             }
         }
         public string ImageSource 
@@ -111,7 +118,7 @@ namespace InstantMessaging.MVVM.Model
         public DateTime Joined
         {
             get { return joined; }
-            private set
+            set
             {
                 joined = value;
             }
@@ -203,6 +210,20 @@ namespace InstantMessaging.MVVM.Model
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(Name));
             }
+        }
+
+        public void ExportToXML(string filename)
+        {
+            XmlSerializer serializer = new(typeof(ContactModel));
+            using var writer = new StreamWriter(filename);
+            serializer.Serialize(writer, this);
+        }
+
+        public static ObservableCollection<ContactModel> ImportFromXML(string filename)
+        {
+            XmlSerializer serializer = new(typeof(ContactModel));
+            using var reader = new StreamReader(filename);
+            return (ObservableCollection<ContactModel>)serializer.Deserialize(reader);
         }
     }
 }
