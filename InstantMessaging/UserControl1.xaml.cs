@@ -15,22 +15,20 @@ namespace InstantMessaging
             DataContext = App.Current.MainWindow.DataContext;
         }
 
-        public delegate void SendMessageHandler(object sender, string senderName, string message);
-        public event SendMessageHandler? SendMessageEvent;
+        //public delegate void SendMessageHandler(object sender, string senderName, string message);
+        //public event SendMessageHandler? SendMessageEvent;
 
-        private void SendMessageButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Get the message text from the input field
-            string message = MessageTextBox.Text;
+        //private void SendMessageButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    string message = MessageTextBox.Text;
+        //    string senderName = "Jasa";
 
-            // Get the username from the DataContext
-            string senderName = "Jasa";
+        //    if (message != null )
+        //    {
+        //        SendMessageEvent?.Invoke(this, senderName, message);
+        //    }
 
-            // Raise the SendMessageEvent with the necessary data
-            SendMessageEvent?.Invoke(this, senderName, message);
-
-            // Clear the message input field
-            MessageTextBox.Text = "";
-        }
+        //    MessageTextBox.Text = "";
+        //}
     }
 }

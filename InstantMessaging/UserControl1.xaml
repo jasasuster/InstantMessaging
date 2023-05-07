@@ -17,7 +17,7 @@
             Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             TextWrapping="Wrap">
             <TextBox.InputBindings>
-                <KeyBinding Key="Return" Command="{Binding Path=SendMessageButton_Click}" />
+                <KeyBinding Key="Return" Command="{Binding SendMessageCommand}" />
             </TextBox.InputBindings>
         </TextBox>
         <TextBlock
@@ -54,7 +54,7 @@
             <Button
                 Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TextBlock}, Path=Background}"
                 BorderThickness="0"
-                Click="{Binding SendMessageButton_Click}">
+                Command="{Binding SendMessageCommand}">
                 <Image
                     Width="25"
                     Height="25"

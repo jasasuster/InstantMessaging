@@ -187,11 +187,7 @@
                 ItemContainerStyle="{StaticResource ChatMessage}"
                 ItemsSource="{Binding Messages}" />
 
-            <local:UserControl1
-                x:Name="ChatControl"
-                Grid.Row="3"
-                DataContext="{Binding DataContext, ElementName=GrandparentElement}"
-                SendMessageEvent="OnSendMessage" />
+            <local:UserControl1 x:Name="ChatControl" Grid.Row="3" />
         </Grid>
     </Grid>
 </Window>

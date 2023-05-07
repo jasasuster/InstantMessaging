@@ -12,7 +12,7 @@ namespace InstantMessaging.MVVM.Model
             Username = username;
             this.imageSource = imageSource;
             Joined = DateTime.Now;
-            IsActive = false;
+            Status = GetRandomStatus();
             Messages = new ObservableCollection<MessageModel>
             {
                 new MessageModel(username, imageSource, "test message 1"),
@@ -26,7 +26,7 @@ namespace InstantMessaging.MVVM.Model
         private string imageSource;
         private MessageModel lastMessage;
         private DateTime joined;
-        private bool isActive;
+        private string status;
 
         public string Username 
         { 
@@ -93,15 +93,15 @@ namespace InstantMessaging.MVVM.Model
             }
         }
 
-        public bool IsActive
+        public string Status
         {
-            get { return isActive; }
+            get { return status; }
             set
             {
-                if(IsActive != value)
+                if(!string.IsNullOrEmpty(value) && (value == "Online" || value == "Away" || value == "Offline"))
                 {
-                    isActive = value;
-                    NotifyPropertyChanged("IsActive");
+                    status = value;
+                    NotifyPropertyChanged("Status");
                 }
             }
         }
@@ -117,7 +117,7 @@ namespace InstantMessaging.MVVM.Model
 
         public override string ToString()
         {
-            return String.Format("Username: {0}\nJoined {1}", Username, Joined.ToString("dd.MM.yyyy HH:mm"));
+            return String.Format("Username: {0}\nJoined: {1}\nStatus: {2}", Username, Joined.ToString("dd.MM.yyyy HH:mm"), Status);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -128,6 +128,20 @@ namespace InstantMessaging.MVVM.Model
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(Name));
             }
+        }
+
+        private string GetRandomStatus()
+        {
+            string[] statuses =
+            {
+                "Online",
+                "Away",
+                "Offline"
+            };
+
+            Random random = new Random();
+            int index = random.Next(statuses.Length);
+            return statuses[index];
         }
     }
 }
