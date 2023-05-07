@@ -1,6 +1,8 @@
 ﻿using InstantMessaging.MVVM.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.ExceptionServices;
 using System.Windows;
 
 namespace InstantMessaging.MVVM.ViewModel
@@ -27,6 +29,7 @@ namespace InstantMessaging.MVVM.ViewModel
         public RelayCommand AddNewContactCommand { get; }
         public RelayCommand RemoveContactCommand { get; }
         public RelayCommand EditContactCommand { get; }
+        public RelayCommand OpenSettingsCommand { get; }
 
         public ViewModel()
         {
@@ -38,9 +41,10 @@ namespace InstantMessaging.MVVM.ViewModel
             };
 
             ContactDoubleClickoCommand = new RelayCommand(ContactDoubleCLick);
-            AddNewContactCommand = new RelayCommand(AddNewContact);
+            AddNewContactCommand = new RelayCommand(OpenAddContactWindow);
             RemoveContactCommand = new RelayCommand(RemoveContact);
             EditContactCommand = new RelayCommand(EditContact);
+            OpenSettingsCommand = new RelayCommand(OpenSettings);
         }
 
         void ContactDoubleCLick(object parameter)
@@ -92,6 +96,37 @@ namespace InstantMessaging.MVVM.ViewModel
             MessageBoxImage icon = MessageBoxImage.Warning;
 
             MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.OK);
+        }
+
+        private void OpenSettings(object parameter)
+        {
+            SettingsWindow settingsWindow = new();
+            if (settingsWindow.ShowDialog() == true)
+            {
+                Settings.Default.Username = settingsWindow.Username;
+                Settings.Default.Email = settingsWindow.Email;
+                Settings.Default.FirstName = settingsWindow.FirstName;
+                Settings.Default.LastName = settingsWindow.LastName;
+                Settings.Default.Birthdate = settingsWindow.Birthdate;
+                Settings.Default.Image = settingsWindow.ImagePath;
+                Settings.Default.Save();
+            }
+        }
+
+        private void OpenAddContactWindow(object parameter)
+        {
+            AddContactWindow addContactWindow = new();
+            if (addContactWindow.ShowDialog() == true)
+            {
+                Contacts.Add(new ContactModel(
+                    addContactWindow.Username,
+                    addContactWindow.FirstName,
+                    addContactWindow.LastName,
+                    addContactWindow.Email,
+                    addContactWindow.Birthdate,
+                    addContactWindow.ImagePath
+                ));
+            }
         }
     }
 }

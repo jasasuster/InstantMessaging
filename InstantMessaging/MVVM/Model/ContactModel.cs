@@ -22,7 +22,30 @@ namespace InstantMessaging.MVVM.Model
             LastMessage = Messages.Last();
         }
 
+        public ContactModel(string username, string firstName, string lastName, string email, DateTime birthdate, string imageSource)
+        {
+            Username = username;
+            this.imageSource = imageSource;
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            Birthdate = birthdate;
+            Joined = DateTime.Now;
+            IsActive = false;
+            Messages = new ObservableCollection<MessageModel>
+            {
+                new MessageModel(username, imageSource, "test message 1"),
+                new MessageModel(username, imageSource, "test message 2"),
+                new MessageModel(username, imageSource, "test message 3")
+            };
+            LastMessage = Messages.Last();
+        }
+
         private string username;
+        private string firstName;
+        private string lastName;
+        private string email;
+        private DateTime birthdate;
         private string imageSource;
         private MessageModel lastMessage;
         private DateTime joined;
@@ -103,6 +126,58 @@ namespace InstantMessaging.MVVM.Model
                 {
                     isActive = value;
                     NotifyPropertyChanged("IsActive");
+                }
+            }
+        }
+
+        public string FirstName
+        {
+            get { return firstName; }
+            set
+            {
+                if(FirstName != value && !string.IsNullOrEmpty(value))
+                {
+                    firstName = value;
+                    NotifyPropertyChanged("FirstName");
+                }
+            }
+        }
+
+        public string LastName
+        {
+            get { return lastName; }
+            set
+            {
+                if(LastName != value && !string.IsNullOrEmpty(value))
+                {
+                    lastName = value;
+                    NotifyPropertyChanged("LastName");
+                }
+            }
+        }
+
+        public string Email
+        {
+            get { return email; }
+            set
+            {
+                if(Email != value && !string.IsNullOrEmpty(value))
+                {
+                    email = value;
+                    NotifyPropertyChanged("Email");
+                }
+            }
+        }
+
+        public DateTime Birthdate
+        {
+            get { return birthdate; }
+            set
+            {
+                if (Birthdate != value)
+                {
+                    birthdate = value;
+                    NotifyPropertyChanged("Birthdate");
                 }
             }
         }

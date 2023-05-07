@@ -69,7 +69,7 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Tools">
-                <MenuItem Foreground="Black" Header="_Settings">
+                <MenuItem Foreground="Black" Header="_Settings" Command="{Binding OpenSettingsCommand}">
                     <MenuItem.Icon>
                         <Image Source="./Icons/settings.png" />
                     </MenuItem.Icon>
