@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Utils\**" />
+    <EmbeddedResource Remove="Utils\**" />
+    <None Remove="Utils\**" />
+    <Page Remove="Utils\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Icons\add.png" />
     <None Remove="Icons\close.png" />
     <None Remove="Icons\delete.png" />
@@ -16,6 +23,11 @@
     <None Remove="Icons\send.png" />
     <None Remove="Icons\settings.png" />
     <None Remove="Icons\user.png" />
+    <None Remove="Images\default_user.png" />
+    <None Remove="Images\user1.png" />
+    <None Remove="Images\user2.png" />
+    <None Remove="Images\user3.png" />
+    <None Remove="Images\user4.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,6 +52,21 @@
     <Resource Include="Icons\settings.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\default_user.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\user1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\user2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\user3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\user4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Icons\user.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -47,6 +74,9 @@
 
   <ItemGroup>
     <Folder Include="MVVM\View\" />
+    <Folder Include="NewFolder1\" />
+    <Folder Include="NewFolder1\NewFolder\" />
+    <Folder Include="NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>

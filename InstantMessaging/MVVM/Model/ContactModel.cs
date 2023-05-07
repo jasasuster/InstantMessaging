@@ -13,7 +13,7 @@ namespace InstantMessaging.MVVM.Model
             Username = username;
             this.imageSource = imageSource;
             Joined = DateTime.Now;
-            IsActive = false;
+            Status = GetRandomStatus();
             Messages = new ObservableCollection<MessageModel>
             {
                 new MessageModel(username, "./Icons/user.png", "test message 1"),
@@ -52,8 +52,7 @@ namespace InstantMessaging.MVVM.Model
         private string imageSource;
         private MessageModel lastMessage;
         private DateTime joined;
-        private bool isActive;
-        private ObservableCollection<MessageModel> messages;
+        private string status;
 
         public string Username 
         { 
@@ -124,15 +123,15 @@ namespace InstantMessaging.MVVM.Model
             }
         }
 
-        public bool IsActive
+        public string Status
         {
-            get { return isActive; }
+            get { return status; }
             set
             {
-                if(IsActive != value)
+                if(!string.IsNullOrEmpty(value) && (value == "Online" || value == "Away" || value == "Offline"))
                 {
-                    isActive = value;
-                    NotifyPropertyChanged("IsActive");
+                    status = value;
+                    NotifyPropertyChanged("Status");
                 }
             }
         }
@@ -191,15 +190,16 @@ namespace InstantMessaging.MVVM.Model
 
         public ObservableCollection<MessageModel> Messages { get; set; }
 
-        public void AddMessage(string message)
+        public void AddMessage(string username, string imageSource, string message)
         {
-            messages.Add(new MessageModel(this.username, this.imageSource, message));
+            Messages.Add(new MessageModel(username, imageSource, message));
             NotifyPropertyChanged("Messages");
+            LastMessage = Messages.Last();
         }
 
         public override string ToString()
         {
-            return String.Format("Username: {0}\nJoined {1}", Username, Joined.ToString("dd.MM.yyyy HH:mm"));
+            return String.Format("Username: {0}\nJoined: {1}\nStatus: {2}", Username, Joined.ToString("dd.MM.yyyy HH:mm"), Status);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -224,6 +224,20 @@ namespace InstantMessaging.MVVM.Model
             XmlSerializer serializer = new(typeof(ContactModel));
             using var reader = new StreamReader(filename);
             return (ObservableCollection<ContactModel>)serializer.Deserialize(reader);
+        }    
+
+        private string GetRandomStatus()
+        {
+            string[] statuses =
+            {
+                "Online",
+                "Away",
+                "Offline"
+            };
+
+            Random random = new Random();
+            int index = random.Next(statuses.Length);
+
         }
     }
 }
