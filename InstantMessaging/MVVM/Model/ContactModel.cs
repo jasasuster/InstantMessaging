@@ -9,20 +9,6 @@ namespace InstantMessaging.MVVM.Model
 {
     public class ContactModel : INotifyPropertyChanged
     {
-        public ContactModel(string username, string imageSource) {
-            Username = username;
-            this.imageSource = imageSource;
-            Joined = DateTime.Now;
-            Status = GetRandomStatus();
-            Messages = new ObservableCollection<MessageModel>
-            {
-                new MessageModel(username, "./Icons/user.png", "test message 1"),
-                new MessageModel(username, "./Icons/user.png", "test message 2"),
-                new MessageModel(username, "./Icons/user.png", "test message 3")
-            };
-            LastMessage = Messages.Last();
-        }
-
         public ContactModel(string username, string firstName, string lastName, string email, DateTime birthdate, string imageSource)
         {
             Username = username;
@@ -32,7 +18,7 @@ namespace InstantMessaging.MVVM.Model
             Email = email;
             Birthdate = birthdate;
             Joined = DateTime.Now;
-            IsActive = false;
+            Status = GetRandomStatus();
             Messages = new ObservableCollection<MessageModel>
             {
                 new MessageModel(username, imageSource, "test message 1"),
@@ -65,10 +51,13 @@ namespace InstantMessaging.MVVM.Model
                 }
                 username = value.Trim();
                 NotifyPropertyChanged("Username");
-                //foreach (MessageModel message in Messages)
-                //{
-                //    message.Username = username;
-                //}
+                if (Messages != null)
+                {
+                    foreach (MessageModel message in Messages)
+                    {
+                        message.Username = username;
+                    }
+                }
             }
         }
         public string ImageSource 
@@ -76,7 +65,7 @@ namespace InstantMessaging.MVVM.Model
             get { return imageSource; }
             set
             {
-                if (File.Exists(value))
+                if (!string.IsNullOrEmpty(value))
                 {
                     imageSource = value;
                     NotifyPropertyChanged("ImageSource");
@@ -237,7 +226,7 @@ namespace InstantMessaging.MVVM.Model
 
             Random random = new Random();
             int index = random.Next(statuses.Length);
-
+            return statuses[index];
         }
     }
 }

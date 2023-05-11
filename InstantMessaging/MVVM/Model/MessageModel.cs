@@ -1,10 +1,20 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 
 namespace InstantMessaging.MVVM.Model
 {
-    public class MessageModel
+    public class MessageModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        void NotifyPropertyChanged(string Name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(Name));
+            }
+        }
         public MessageModel(string username, string imageSource, string message) { 
             Username = username;
             this.imageSource = imageSource;
@@ -29,6 +39,22 @@ namespace InstantMessaging.MVVM.Model
                     throw new ArgumentException("Value is either an empty string or too long");
                 }
                 username = value.Trim();
+                NotifyPropertyChanged("Username");
+            }
+        }
+        public string ImageSource
+        {
+            get { return imageSource; }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    imageSource = value;
+                }
+                else
+                {
+                    throw new ArgumentException("File does not exist in the system");
+                }
             }
         }
         public string Message 

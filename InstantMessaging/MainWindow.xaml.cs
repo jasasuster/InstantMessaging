@@ -37,5 +37,10 @@ namespace InstantMessaging
         {
             Close();
         }
+
+        private void LV_Contacts_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

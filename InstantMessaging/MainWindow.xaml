@@ -46,7 +46,7 @@
                     Foreground="Black"
                     Header="_Export">
                     <MenuItem.Icon>
-                        <Image Source="./Icons/add.png" />
+                        <Image Source="./Icons/export.png" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem
@@ -54,7 +54,7 @@
                     Foreground="Black"
                     Header="_Import">
                     <MenuItem.Icon>
-                        <Image Source="./Icons/add.png" />
+                        <Image Source="./Icons/import.png" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
@@ -129,7 +129,8 @@
                 ItemContainerStyle="{StaticResource ContactInfo}"
                 ItemsSource="{Binding Contacts}"
                 MouseDoubleClick="LV_Contacts_DoubleClick"
-                SelectedItem="{Binding SelectedContact}" />
+                SelectedItem="{Binding SelectedContact}"
+                SelectionChanged="LV_Contacts_SelectionChanged" />
 
             <DockPanel
                 Grid.Row="3"
@@ -141,7 +142,7 @@
                     Height="40"
                     Margin="10,0,0,0">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Images/user4.png" />
+                        <ImageBrush ImageSource="./Images/user4.png" />
                     </Ellipse.Fill>
                 </Ellipse>
                 <Label
@@ -202,6 +203,7 @@
                 d:ItemsSource="{d:SampleData ItemCount=5}"
                 Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TextBlock}, Path=Background}"
                 BorderThickness="0"
+                Focusable="False"
                 Foreground="White"
                 ItemContainerStyle="{StaticResource ChatMessage}"
                 ItemsSource="{Binding Messages}" />

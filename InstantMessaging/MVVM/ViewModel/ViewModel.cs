@@ -82,9 +82,9 @@ namespace InstantMessaging.MVVM.ViewModel
         {
             Contacts = new ObservableCollection<ContactModel>
             {
-                new ContactModel("user1", "User", "1", "user1@gmail.com", DateTime.Now, "./Icons/user.png"),
-                new ContactModel("user2", "User", "2", "user2@gmail.com", DateTime.Now, "./Icons/user.png"),
-                new ContactModel("user3", "User", "3", "user3@gmail.com", DateTime.Now, "./Icons/user.png")
+                new ContactModel("user1", "User", "1", "user1@gmail.com", DateTime.Now, "./Images/user1.png"),
+                new ContactModel("user2", "User", "2", "user2@gmail.com", DateTime.Now, "./Images/user2.png"),
+                new ContactModel("user3", "User", "3", "user3@gmail.com", DateTime.Now, "./Images/user3.png")
             };
 
             Message = "";
@@ -133,6 +133,7 @@ namespace InstantMessaging.MVVM.ViewModel
             {
                 if(!isEditWindowOpen)
                 {
+                    var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, SelectedContact.ImageSource);
                     editContactWindow = new()
                     {
                         Owner = App.Current.MainWindow,
@@ -235,13 +236,14 @@ namespace InstantMessaging.MVVM.ViewModel
                 Contacts = (ObservableCollection<ContactModel>)serializer.Deserialize(reader);
                 NotifyPropertyChanged(nameof(Contacts));
             }
+        }
 
         private void SendMessage(object parameter)
         {
             if (SelectedContact != null)
             {
                 // add message
-                SelectedContact.AddMessage("Jasa", "/Images/user4.png", Message);
+                SelectedContact.AddMessage("Jasa", "./Images/user4.png", Message);
 
                 // random reply
                 Random random = new Random();
@@ -258,7 +260,7 @@ namespace InstantMessaging.MVVM.ViewModel
             if (SelectedContact != null)
             {
                 // add message
-                SelectedContact.AddMessage(senderName, "/Images/user4.png", message);
+                SelectedContact.AddMessage(senderName, "./Images/user4.png", message);
 
                 // random reply
                 Random random = new Random();

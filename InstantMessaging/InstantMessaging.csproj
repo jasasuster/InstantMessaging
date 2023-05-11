@@ -20,6 +20,8 @@
     <None Remove="Icons\delete.png" />
     <None Remove="Icons\edit.png" />
     <None Remove="Icons\emoji.png" />
+    <None Remove="Icons\export.png" />
+    <None Remove="Icons\import.png" />
     <None Remove="Icons\send.png" />
     <None Remove="Icons\settings.png" />
     <None Remove="Icons\user.png" />
@@ -31,6 +33,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Icons\export.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Icons\add.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -46,27 +51,30 @@
     <Resource Include="Icons\emoji.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Icons\import.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Icons\send.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icons\settings.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\default_user.png">
+    <Content Include="Images\default_user.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\user1.png">
+    </Content>
+    <Content Include="Images\user1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\user2.png">
+    </Content>
+    <Content Include="Images\user2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\user3.png">
+    </Content>
+    <Content Include="Images\user3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\user4.png">
+    </Content>
+    <Content Include="Images\user4.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Content Include="Icons\user.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
