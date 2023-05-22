@@ -1,18 +1,22 @@
-﻿using Microsoft.Win32;
+﻿using InstantMessaging.MVVM.ViewModel;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace InstantMessaging
 {
@@ -21,13 +25,15 @@ namespace InstantMessaging
     /// </summary>
     public partial class SettingsWindow : Window, INotifyPropertyChanged
     {
-
-        public SettingsWindow()
+        private ViewModel viewModel;
+        public SettingsWindow(ViewModel vm)
         {
             InitializeComponent();
 
             // Set the data context to this window
             DataContext = this;
+
+            viewModel = vm;
 
             // Initialize the settings fields
             Username = Settings.Default.Username;
@@ -41,7 +47,10 @@ namespace InstantMessaging
                 Image = new BitmapImage(new Uri(Settings.Default.Image));
             }
             ErrorMessage = string.Empty;
+            autoSaveToggleButton.IsChecked = Settings.Default.AutoSaveEnabled;
         }
+
+        private DispatcherTimer? dt;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -213,6 +222,21 @@ namespace InstantMessaging
                 DialogResult = true;
                 Close();
             }
+        }
+
+        private void ToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (autoSaveToggleButton.IsChecked == true)
+            {
+                int selectedInterval = int.Parse(((ComboBoxItem)intervalComboBox.SelectedItem).Tag.ToString());
+                viewModel.StartAutomaticSaving(selectedInterval);
+            }
+            else
+            {
+                viewModel.StopAutomaticSaving();
+            }
+            Settings.Default.AutoSaveEnabled = autoSaveToggleButton.IsChecked == true;
+            Settings.Default.Save();
         }
     }
 }

@@ -9,6 +9,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Templates/ContactInfo.xaml" />
                 <ResourceDictionary Source="/Templates/ChatMessage.xaml" />
+                <ResourceDictionary Source="/Templates/ToggleButtonStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

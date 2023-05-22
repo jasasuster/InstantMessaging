@@ -7,12 +7,14 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Runtime.ExceptionServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using System.Xml.Serialization;
 
 namespace InstantMessaging.MVVM.ViewModel
 {
-    class ViewModel : INotifyPropertyChanged
+    public class ViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         void NotifyPropertyChanged(string Name)
@@ -182,7 +184,7 @@ namespace InstantMessaging.MVVM.ViewModel
 
         private void OpenSettings(object parameter)
         {
-            SettingsWindow settingsWindow = new();
+            SettingsWindow settingsWindow = new(this);
             if (settingsWindow.ShowDialog() == true)
             {
                 Settings.Default.Username = settingsWindow.Username;
@@ -222,6 +224,16 @@ namespace InstantMessaging.MVVM.ViewModel
                 using var writer = new StreamWriter(dialog.FileName);
                 serializer.Serialize(writer, Contacts);
             }
+        }
+
+        private void ExportAutoSave(string fileName)
+        {
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string filePath = Path.Combine(desktopPath, fileName);
+
+            XmlSerializer serializer = new(typeof(ObservableCollection<ContactModel>));
+            using var writer = new StreamWriter(filePath);
+            serializer.Serialize(writer, Contacts);
         }
 
         private void Import(object parameter)
@@ -270,6 +282,39 @@ namespace InstantMessaging.MVVM.ViewModel
             }
 
             Message = "";
+        }
+
+        // Settings
+
+        private DispatcherTimer? dt;
+
+        public void StartAutomaticSaving(int intervalInSeconds)
+        {
+            if (dt != null)
+            {
+                dt.Stop();
+                dt.Tick -= Dt_Tick;
+            }
+
+            dt = new();
+            dt.Interval = TimeSpan.FromSeconds(intervalInSeconds);
+            dt.Tick += Dt_Tick;
+            dt.Start();
+        }
+
+        public void StopAutomaticSaving()
+        {
+            if (dt != null)
+            {
+                dt.Stop();
+                dt.Tick -= Dt_Tick;
+                dt = null;
+            }
+        }
+
+        private void Dt_Tick(object? sender, EventArgs e)
+        {
+            ExportAutoSave("test.xml");
         }
     }
 }

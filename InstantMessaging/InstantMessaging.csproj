@@ -8,9 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NewFolder1\**" />
+    <Compile Remove="NewFolder\**" />
     <Compile Remove="Utils\**" />
+    <EmbeddedResource Remove="NewFolder1\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
     <EmbeddedResource Remove="Utils\**" />
+    <None Remove="NewFolder1\**" />
+    <None Remove="NewFolder\**" />
     <None Remove="Utils\**" />
+    <Page Remove="NewFolder1\**" />
+    <Page Remove="NewFolder\**" />
     <Page Remove="Utils\**" />
   </ItemGroup>
 
@@ -82,9 +90,6 @@
 
   <ItemGroup>
     <Folder Include="MVVM\View\" />
-    <Folder Include="NewFolder1\" />
-    <Folder Include="NewFolder1\NewFolder\" />
-    <Folder Include="NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>

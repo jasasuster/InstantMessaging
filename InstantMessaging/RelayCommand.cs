@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace InstantMessaging
 {
-    internal class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         #region Fields 
         readonly Action<object> _execute;

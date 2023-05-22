@@ -94,5 +94,17 @@ namespace InstantMessaging {
                 this["Image"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoSaveEnabled {
+            get {
+                return ((bool)(this["AutoSaveEnabled"]));
+            }
+            set {
+                this["AutoSaveEnabled"] = value;
+            }
+        }
     }
 }

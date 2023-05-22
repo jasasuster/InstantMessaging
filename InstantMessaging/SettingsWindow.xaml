@@ -120,7 +120,77 @@
                         Foreground="red" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Auto save" />
+            <TabItem Header="Auto save">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <ToggleButton
+                        x:Name="autoSaveToggleButton"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Checked="ToggleButton_Click"
+                        Content="Save automatically"
+                        Style="{StaticResource ToggleButtonStyle}"
+                        Unchecked="ToggleButton_Click" />
+
+                    <DockPanel
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2">
+
+                        <Label
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Content="Interval">
+                            <Label.Style>
+                                <Style TargetType="Label">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=autoSaveToggleButton, Path=IsChecked}" Value="False">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                            <Setter Property="Opacity" Value="0.5" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+
+                        <ComboBox
+                            x:Name="intervalComboBox"
+                            Grid.Row="3"
+                            Grid.Column="3"
+                            HorizontalAlignment="Right"
+                            SelectedIndex="1">
+                            <ComboBox.Style>
+                                <Style TargetType="ComboBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=autoSaveToggleButton, Path=IsChecked}" Value="False">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                            <Setter Property="Opacity" Value="0.5" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.Style>
+                            <ComboBoxItem Tag="60">1 min</ComboBoxItem>
+                            <ComboBoxItem Tag="300">5 min</ComboBoxItem>
+                            <ComboBoxItem Tag="900">15 min</ComboBoxItem>
+                            <ComboBoxItem Tag="1800">30 min</ComboBoxItem>
+                        </ComboBox>
+                    </DockPanel>
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>
