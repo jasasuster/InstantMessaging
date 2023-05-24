@@ -48,9 +48,8 @@ namespace InstantMessaging
             }
             ErrorMessage = string.Empty;
             autoSaveToggleButton.IsChecked = Settings.Default.AutoSaveEnabled;
+            intervalComboBox.SelectItemByTag(Settings.Default.AutoSaveInterval);
         }
-
-        private DispatcherTimer? dt;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -226,10 +225,17 @@ namespace InstantMessaging
 
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            if (autoSaveToggleButton.IsChecked == true)
+            if (autoSaveToggleButton.IsChecked == true && intervalComboBox.SelectedItem != null)
             {
-                int selectedInterval = int.Parse(((ComboBoxItem)intervalComboBox.SelectedItem).Tag.ToString());
-                viewModel.StartAutomaticSaving(selectedInterval);
+                try
+                {
+                    int selectedInterval = int.Parse(((ComboBoxItem)intervalComboBox.SelectedItem).Tag.ToString());
+                    viewModel.StartAutomaticSaving(selectedInterval);
+                    Settings.Default.AutoSaveInterval = selectedInterval;
+                } catch (Exception ex) { 
+                    Console.Error.WriteLine(ex.ToString());
+                }
+                
             }
             else
             {
@@ -237,6 +243,23 @@ namespace InstantMessaging
             }
             Settings.Default.AutoSaveEnabled = autoSaveToggleButton.IsChecked == true;
             Settings.Default.Save();
+        }
+
+        private void IntervalComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int selectedTag = int.Parse(((ComboBoxItem)intervalComboBox.SelectedItem).Tag.ToString());
+            if (Settings.Default.AutoSaveInterval != selectedTag) 
+            {
+                Settings.Default.AutoSaveInterval = int.Parse(((ComboBoxItem)intervalComboBox.SelectedItem).Tag.ToString());
+                Settings.Default.Save();
+            }
+            ResetAutomaticSaving(selectedTag);
+        }
+
+        private void ResetAutomaticSaving(int selectedInterval)
+        {
+            viewModel.StopAutomaticSaving();
+            viewModel.StartAutomaticSaving(selectedInterval);
         }
     }
 }

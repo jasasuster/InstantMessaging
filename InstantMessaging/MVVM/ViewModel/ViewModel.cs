@@ -5,7 +5,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Reflection.Metadata;
 using System.Runtime.ExceptionServices;
+using System.Threading.Channels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -16,6 +18,8 @@ namespace InstantMessaging.MVVM.ViewModel
 {
     public class ViewModel : INotifyPropertyChanged
     {
+        private string autoSaveFileName = "test.xml";
+
         public event PropertyChangedEventHandler? PropertyChanged;
         void NotifyPropertyChanged(string Name)
         {
@@ -79,15 +83,29 @@ namespace InstantMessaging.MVVM.ViewModel
         public RelayCommand ExportCommand { get; }
         public RelayCommand ImportCommand { get; }
         public RelayCommand SendMessageCommand { get; }
+        public RelayCommand DefaultLayoutCommand { get; }
+        public RelayCommand AlternativeLayoutCommand { get; }
 
         public ViewModel()
         {
-            Contacts = new ObservableCollection<ContactModel>
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string filePath = Path.Combine(desktopPath, autoSaveFileName);
+
+            if (File.Exists(filePath) && Settings.Default.AutoSaveEnabled)
             {
-                new ContactModel("user1", "User", "1", "user1@gmail.com", DateTime.Now, "./Images/user1.png"),
-                new ContactModel("user2", "User", "2", "user2@gmail.com", DateTime.Now, "./Images/user2.png"),
-                new ContactModel("user3", "User", "3", "user3@gmail.com", DateTime.Now, "./Images/user3.png")
-            };
+                // Import from file
+                ImportAutoSave(autoSaveFileName);
+            }
+            else
+            {
+                // Create new
+                Contacts = new ObservableCollection<ContactModel>
+                {
+                    new ContactModel("user1", "User", "1", "user1@gmail.com", DateTime.Now, "./Images/user1.png"),
+                    new ContactModel("user2", "User", "2", "user2@gmail.com", DateTime.Now, "./Images/user2.png"),
+                    new ContactModel("user3", "User", "3", "user3@gmail.com", DateTime.Now, "./Images/user3.png")
+                };
+            }            
 
             Message = "";
 
@@ -99,8 +117,15 @@ namespace InstantMessaging.MVVM.ViewModel
             ExportCommand = new RelayCommand(Export);
             ImportCommand = new RelayCommand(Import);
             SendMessageCommand = new RelayCommand(SendMessage);
+            DefaultLayoutCommand = new RelayCommand(DefaultLayout);
+            AlternativeLayoutCommand = new RelayCommand(AlternativeLayout);
 
             isEditWindowOpen = false;
+
+            if (Settings.Default.AutoSaveEnabled)
+            {
+                StartAutomaticSaving(Settings.Default.AutoSaveInterval);
+            }
         }
 
         void ContactDoubleCLick(object parameter)
@@ -250,6 +275,16 @@ namespace InstantMessaging.MVVM.ViewModel
             }
         }
 
+        private void ImportAutoSave(string fileName) {
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string filePath = Path.Combine(desktopPath, fileName);
+
+            XmlSerializer serializer = new(typeof(ObservableCollection<ContactModel>));
+            using var reader = new StreamReader(filePath);
+            Contacts = (ObservableCollection<ContactModel>)serializer.Deserialize(reader);
+            NotifyPropertyChanged(nameof(Contacts));
+        }
+
         private void SendMessage(object parameter)
         {
             if (SelectedContact != null)
@@ -314,7 +349,31 @@ namespace InstantMessaging.MVVM.ViewModel
 
         private void Dt_Tick(object? sender, EventArgs e)
         {
-            ExportAutoSave("test.xml");
+            ExportAutoSave(autoSaveFileName);
+        }
+
+        private void DefaultLayout(object parameter)
+        {
+            // Set the content to the default layout
+            var mainWindow = new MainWindow();
+            Application.Current.MainWindow = mainWindow;
+            mainWindow.Show();
+
+
+
+            //Application.Current.MainWindow = new MainWindow();
+            //Content = new MainWindow();
+        }
+
+        private void AlternativeLayout(object parameter)
+        {
+            var mainWindow = new MainWindowAlternative();
+            Application.Current.MainWindow = mainWindow;
+            mainWindow.Show();
+
+            // Set the content to the alternative layout
+            //Application.Current.MainWindow = new MainWindowAlternative();
+            //Content = new MainWindowAlternative();
         }
     }
 }

@@ -172,7 +172,7 @@
                             Grid.Row="3"
                             Grid.Column="3"
                             HorizontalAlignment="Right"
-                            SelectedIndex="1">
+                            SelectionChanged="IntervalComboBox_SelectionChanged">
                             <ComboBox.Style>
                                 <Style TargetType="ComboBox">
                                     <Style.Triggers>
