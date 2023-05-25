@@ -1,23 +1,32 @@
 ﻿using InstantMessaging.MVVM.Model;
 using InstantMessaging.MVVM.ViewModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace InstantMessaging
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainWindowAlternative.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindowAlternative : Window
     {
-
-        public MainWindow()
+        public MainWindowAlternative()
         {
             var vm = new ViewModel();
             DataContext = vm;
-
             InitializeComponent();
         }
-
         void LV_Contacts_DoubleClick(object sender, RoutedEventArgs e)
         {
             ContactModel selectedContact = (ContactModel)LV_Contacts.SelectedItem;
@@ -37,19 +46,10 @@ namespace InstantMessaging
         {
             Close();
         }
+
         private void LV_Contacts_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
 
         }
-
-        //private void View1Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    mainView.ShowView1();
-        //}
-
-        //private void View2Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    mainView.ShowView2();
-        //}
     }
 }
