@@ -117,8 +117,8 @@ namespace InstantMessaging.MVVM.ViewModel
             ExportCommand = new RelayCommand(Export);
             ImportCommand = new RelayCommand(Import);
             SendMessageCommand = new RelayCommand(SendMessage);
-            DefaultLayoutCommand = new RelayCommand(DefaultLayout);
-            AlternativeLayoutCommand = new RelayCommand(AlternativeLayout);
+            //DefaultLayoutCommand = new RelayCommand(DefaultLayout);
+            //AlternativeLayoutCommand = new RelayCommand(AlternativeLayout);
 
             isEditWindowOpen = false;
 
@@ -352,28 +352,28 @@ namespace InstantMessaging.MVVM.ViewModel
             ExportAutoSave(autoSaveFileName);
         }
 
-        private void DefaultLayout(object parameter)
-        {
-            // Set the content to the default layout
-            var mainWindow = new MainWindow();
-            Application.Current.MainWindow = mainWindow;
-            mainWindow.Show();
+        //private void DefaultLayout(object parameter)
+        //{
+        //    // Set the content to the default layout
+        //    var mainWindow = new MainWindow();
+        //    Application.Current.MainWindow = mainWindow;
+        //    mainWindow.Show();
 
 
 
-            //Application.Current.MainWindow = new MainWindow();
-            //Content = new MainWindow();
-        }
+        //    //Application.Current.MainWindow = new MainWindow();
+        //    //Content = new MainWindow();
+        //}
 
-        private void AlternativeLayout(object parameter)
-        {
-            var mainWindow = new MainWindowAlternative();
-            Application.Current.MainWindow = mainWindow;
-            mainWindow.Show();
+        //private void AlternativeLayout(object parameter)
+        //{
+        //    var mainWindow = new MainWindowAlternative();
+        //    Application.Current.MainWindow = mainWindow;
+        //    mainWindow.Show();
 
-            // Set the content to the alternative layout
-            //Application.Current.MainWindow = new MainWindowAlternative();
-            //Content = new MainWindowAlternative();
-        }
+        //    // Set the content to the alternative layout
+        //    //Application.Current.MainWindow = new MainWindowAlternative();
+        //    //Content = new MainWindowAlternative();
+        //}
     }
 }

@@ -6,12 +6,7 @@
     xmlns:local="clr-namespace:InstantMessaging"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="ChatApp"
-    Width="1200"
-    Height="650"
-    MinWidth="600"
-    MinHeight="325"
-    Background="#1e2124"
-    ResizeMode="CanResizeWithGrip"
+    Style="{StaticResource WindowStyle}"
     mc:Ignorable="d">
 
     <Grid>
@@ -28,132 +23,106 @@
         <Menu
             Grid.Row="0"
             Grid.ColumnSpan="2"
-            Margin="5,0,0,0"
-            VerticalAlignment="Center"
-            Background="#1e2124"
-            Foreground="White">
+            Style="{StaticResource MenuStyle}">
             <MenuItem Header="_File">
                 <MenuItem
                     Click="Menu_Exit"
-                    Foreground="Black"
-                    Header="_Exit">
+                    Header="_Exit"
+                    Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Icon>
-                        <Image Source="./Icons/close.png" />
+                        <Image Source="{StaticResource CloseImage}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem
                     Command="{Binding ExportCommand}"
-                    Foreground="Black"
-                    Header="_Export">
+                    Header="_Export"
+                    Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Icon>
-                        <Image Source="./Icons/export.png" />
+                        <Image Source="{StaticResource ExportImage}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem
                     Command="{Binding ImportCommand}"
-                    Foreground="Black"
-                    Header="_Import">
+                    Header="_Import"
+                    Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Icon>
-                        <Image Source="./Icons/import.png" />
+                        <Image Source="{StaticResource ImportImage}" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Contacts">
                 <MenuItem
                     Command="{Binding AddNewContactCommand}"
-                    Foreground="Black"
-                    Header="_Add">
+                    Header="_Add"
+                    Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Icon>
-                        <Image Source="./Icons/add.png" />
+                        <Image Source="{StaticResource AddImage}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem
                     Command="{Binding RemoveContactCommand}"
-                    Foreground="Black"
-                    Header="_Delete">
+                    Header="_Delete"
+                    Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Icon>
-                        <Image Source="./Icons/delete.png" />
+                        <Image Source="{StaticResource DeleteImage}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem
                     Command="{Binding EditContactCommand}"
-                    Foreground="Black"
-                    Header="_Edit">
+                    Header="_Edit"
+                    Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Icon>
-                        <Image Source="./Icons/edit.png" />
+                        <Image Source="{StaticResource EditImage}" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Tools">
                 <MenuItem
                     Command="{Binding OpenSettingsCommand}"
-                    Foreground="Black"
-                    Header="_Settings">
+                    Header="_Settings"
+                    Style="{StaticResource MenuItemStyle}">
                     <MenuItem.Icon>
-                        <Image Source="./Icons/settings.png" />
+                        <Image Source="{StaticResource SettingsImage}" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
         </Menu>
 
-        <Grid Grid.Row="1" Background="#282b30">
+        <Grid Grid.Row="1" Background="{StaticResource PrimaryColorBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50" />
                 <RowDefinition Height="2" />
                 <RowDefinition />
+                <RowDefinition Height="2" />
                 <RowDefinition Height="50" />
             </Grid.RowDefinitions>
 
             <Label
                 Grid.Row="0"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
                 Content="Contacts"
-                FontSize="22"
-                FontWeight="Medium"
-                Foreground="Gray" />
+                Style="{StaticResource ContactsLabelStyle}" />
 
-            <Border
-                Grid.Row="1"
-                Height="2"
-                VerticalAlignment="Bottom"
-                Background="#1e2124" />
+            <Border Grid.Row="1" Style="{StaticResource ContactsSeparatorStyle}" />
 
             <ListView
                 Name="LV_Contacts"
                 Grid.Row="2"
                 d:ItemsSource="{d:SampleData ItemCount=5}"
-                Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TextBlock}, Path=Background}"
-                BorderThickness="0"
-                Foreground="White"
-                ItemContainerStyle="{StaticResource ContactInfo}"
                 ItemsSource="{Binding Contacts}"
                 MouseDoubleClick="LV_Contacts_DoubleClick"
                 SelectedItem="{Binding SelectedContact}"
-                SelectionChanged="LV_Contacts_SelectionChanged" />
+                SelectionChanged="LV_Contacts_SelectionChanged"
+                Style="{StaticResource ContactsListViewStyle}" />
 
-            <DockPanel
-                Grid.Row="3"
-                Height="50"
-                VerticalAlignment="Bottom"
-                Background="#1e2124">
-                <Ellipse
-                    Width="40"
-                    Height="40"
-                    Margin="10,0,0,0">
+            <Border Grid.Row="3" Style="{StaticResource ContactsSeparatorStyle}" />
+
+            <DockPanel Grid.Row="4" Style="{StaticResource UserInfoDockPanelStyle}">
+                <Ellipse Style="{StaticResource UserImageEllipseStyle}">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="./Images/user4.png" />
+                        <ImageBrush ImageSource="{StaticResource User4Image}" />
                     </Ellipse.Fill>
                 </Ellipse>
-                <Label
-                    Margin="0,5,5,5"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Content="Jaša"
-                    DockPanel.Dock="Right"
-                    FontSize="20"
-                    FontWeight="SemiBold"
-                    Foreground="Gray" />
+                <Label Content="Jaša" Style="{StaticResource UsernameLabel}" />
             </DockPanel>
         </Grid>
 
@@ -161,7 +130,7 @@
             Name="CurrentlySelected"
             Grid.Row="1"
             Grid.Column="1"
-            Background="#36393e"
+            Background="{StaticResource SecondaryColorBrush}"
             DataContext="{Binding SelectedContact}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60" />
@@ -170,43 +139,23 @@
                 <RowDefinition Height="70" />
             </Grid.RowDefinitions>
 
-            <DockPanel
-                Grid.Row="0"
-                Margin="0,5,0,5"
-                Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TextBlock}, Path=Background}">
-                <Ellipse
-                    Width="40"
-                    Height="40"
-                    Margin="80,2,5,2">
+            <DockPanel Grid.Row="0" Style="{StaticResource ContactBannerDockPanelStyle}">
+                <Ellipse Style="{StaticResource ContactImageEllipseStyle}">
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="{Binding ImageSource}" />
                     </Ellipse.Fill>
                 </Ellipse>
-                <TextBlock
-                    Margin="10,0,100,0"
-                    VerticalAlignment="Center"
-                    FontSize="20"
-                    FontWeight="SemiBold"
-                    Foreground="Gray"
-                    Text="{Binding Username, FallbackValue='Username'}" />
+                <TextBlock Style="{StaticResource ContactUsernameTextBlock}" Text="{Binding Username, FallbackValue='Username'}" />
             </DockPanel>
 
-            <Border
-                Grid.Row="1"
-                Height="2"
-                VerticalAlignment="Bottom"
-                Background="#282b30" />
+            <Border Grid.Row="1" Style="{StaticResource ChatSeparatorStyle}" />
 
             <ListView
                 Name="LV_ChatMessages"
                 Grid.Row="2"
                 d:ItemsSource="{d:SampleData ItemCount=5}"
-                Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TextBlock}, Path=Background}"
-                BorderThickness="0"
-                Focusable="False"
-                Foreground="White"
-                ItemContainerStyle="{StaticResource ChatMessage}"
-                ItemsSource="{Binding Messages}" />
+                ItemsSource="{Binding Messages}"
+                Style="{StaticResource MessagesListViewStyle}" />
 
             <local:UserControl1 x:Name="ChatControl" Grid.Row="3" />
         </Grid>

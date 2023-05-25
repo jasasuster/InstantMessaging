@@ -8,17 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MVVM\View\**" />
     <Compile Remove="NewFolder1\**" />
-    <Compile Remove="NewFolder\**" />
     <Compile Remove="Utils\**" />
+    <EmbeddedResource Remove="MVVM\View\**" />
     <EmbeddedResource Remove="NewFolder1\**" />
-    <EmbeddedResource Remove="NewFolder\**" />
     <EmbeddedResource Remove="Utils\**" />
+    <None Remove="MVVM\View\**" />
     <None Remove="NewFolder1\**" />
-    <None Remove="NewFolder\**" />
     <None Remove="Utils\**" />
+    <Page Remove="MVVM\View\**" />
     <Page Remove="NewFolder1\**" />
-    <Page Remove="NewFolder\**" />
     <Page Remove="Utils\**" />
   </ItemGroup>
 
@@ -86,10 +86,6 @@
     <Content Include="Icons\user.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="MVVM\View\" />
   </ItemGroup>
 
   <ItemGroup>

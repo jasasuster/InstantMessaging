@@ -37,6 +37,7 @@ namespace InstantMessaging
         {
             InitializeComponent();
             DataContext = this;
+            birthdatePicker.SelectedDate = DateTime.Now;
         }
 
         private string _errorMessage;

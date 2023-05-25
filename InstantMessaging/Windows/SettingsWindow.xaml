@@ -8,12 +8,12 @@
     Title="Settings"
     Width="800"
     Height="450"
-    ResizeMode="NoResize"
+    Style="{StaticResource ModalWindowStyle}"
     mc:Ignorable="d">
     <Grid>
-        <TabControl>
-            <TabItem Header="Personal information">
-                <Grid>
+        <TabControl Style="{StaticResource TabControlStyle}">
+            <TabItem Header="Personal information" Style="{StaticResource TabItemStyle}">
+                <Grid Style="{StaticResource GridWindowStyle}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30" />
                         <ColumnDefinition Width="Auto" />
@@ -35,74 +35,78 @@
                     <Label
                         Grid.Row="1"
                         Grid.Column="1"
-                        Content="Username" />
+                        Content="Username"
+                        Style="{StaticResource LabelWindowStyle}" />
                     <TextBox
                         Name="usernameTextBox"
                         Grid.Row="1"
                         Grid.Column="3"
+                        Style="{StaticResource TextBoxWindowStyle}"
                         Text="{Binding Username}" />
 
                     <Label
                         Grid.Row="2"
                         Grid.Column="1"
-                        Content="Email" />
+                        Content="Email"
+                        Style="{StaticResource LabelWindowStyle}" />
                     <TextBox
                         Name="emailTextBox"
                         Grid.Row="2"
                         Grid.Column="3"
+                        Style="{StaticResource TextBoxWindowStyle}"
                         Text="{Binding Email}" />
 
                     <Label
                         Grid.Row="3"
                         Grid.Column="1"
-                        Content="First Name" />
+                        Content="First Name"
+                        Style="{StaticResource LabelWindowStyle}" />
                     <TextBox
                         Name="firstNameTextBox"
                         Grid.Row="3"
                         Grid.Column="3"
+                        Style="{StaticResource TextBoxWindowStyle}"
                         Text="{Binding FirstName}" />
 
                     <Label
                         Grid.Row="4"
                         Grid.Column="1"
-                        Content="Last Name" />
+                        Content="Last Name"
+                        Style="{StaticResource LabelWindowStyle}" />
                     <TextBox
                         Name="lastNameTextBox"
                         Grid.Row="4"
                         Grid.Column="3"
+                        Style="{StaticResource TextBoxWindowStyle}"
                         Text="{Binding LastName}" />
 
                     <Label
                         Grid.Row="5"
                         Grid.Column="1"
-                        Content="Birthdate" />
+                        Content="Birthdate"
+                        Style="{StaticResource LabelWindowStyle}" />
                     <DatePicker
                         Name="birthdatePicker"
                         Grid.Row="5"
                         Grid.Column="3"
-                        SelectedDate="{Binding Birthdate}" />
+                        SelectedDate="{Binding Birthdate}"
+                        Style="{StaticResource DatePickerStyle}" />
 
-                    <TextBlock
+                    <Label
                         Grid.Row="6"
                         Grid.Column="1"
-                        Margin="5"
-                        VerticalAlignment="Center"
-                        Text="Image" />
+                        Content="Image"
+                        Style="{StaticResource LabelWindowStyle}" />
                     <StackPanel
                         Grid.Row="6"
                         Grid.Column="3"
-                        Margin="5"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
+                        Style="{StaticResource ImageStackPanelStyle}">
                         <Button
                             x:Name="BrowseButton"
                             Click="BrowseButton_Click"
-                            Content="Browse" />
-                        <Image
-                            x:Name="ImageControl"
-                            Width="50"
-                            Height="50"
-                            Margin="5" />
+                            Content="Browse"
+                            Style="{StaticResource ButtonImageWindowStyle}" />
+                        <Image x:Name="ImageControl" Style="{StaticResource ImageWindowStyle}" />
                     </StackPanel>
 
                     <Button
@@ -110,18 +114,19 @@
                         Grid.Column="1"
                         Grid.ColumnSpan="3"
                         Click="SaveButton_Click"
-                        Content="Save" />
+                        Content="Save"
+                        Style="{StaticResource ButtonAddWindowStyle}" />
 
                     <Label
                         Grid.Row="8"
                         Grid.Column="1"
                         Grid.ColumnSpan="3"
                         Content="{Binding Path=ErrorMessage}"
-                        Foreground="red" />
+                        Style="{StaticResource ErrorTextStyle}" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Auto save">
-                <Grid>
+            <TabItem Header="Auto save" Style="{StaticResource TabItemStyle}">
+                <Grid Style="{StaticResource GridWindowStyle}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30" />
                         <ColumnDefinition Width="Auto" />
@@ -154,35 +159,15 @@
                         <Label
                             Grid.Row="3"
                             Grid.Column="1"
-                            Content="Interval">
-                            <Label.Style>
-                                <Style TargetType="Label">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ElementName=autoSaveToggleButton, Path=IsChecked}" Value="False">
-                                            <Setter Property="IsEnabled" Value="False" />
-                                            <Setter Property="Opacity" Value="0.5" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Label.Style>
-                        </Label>
+                            Content="Interval"
+                            Style="{StaticResource LabelOpacityStyle}" />
 
                         <ComboBox
                             x:Name="intervalComboBox"
                             Grid.Row="3"
                             Grid.Column="3"
-                            HorizontalAlignment="Right"
-                            SelectionChanged="IntervalComboBox_SelectionChanged">
-                            <ComboBox.Style>
-                                <Style TargetType="ComboBox">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ElementName=autoSaveToggleButton, Path=IsChecked}" Value="False">
-                                            <Setter Property="IsEnabled" Value="False" />
-                                            <Setter Property="Opacity" Value="0.5" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ComboBox.Style>
+                            SelectionChanged="IntervalComboBox_SelectionChanged"
+                            Style="{StaticResource ComboBoxStyle}">
                             <ComboBoxItem Tag="60">1 min</ComboBoxItem>
                             <ComboBoxItem Tag="300">5 min</ComboBoxItem>
                             <ComboBoxItem Tag="900">15 min</ComboBoxItem>

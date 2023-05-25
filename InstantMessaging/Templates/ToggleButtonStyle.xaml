@@ -26,7 +26,7 @@
         <Setter Property="Background" Value="{StaticResource ButtonNormalBackground}" />
         <Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+        <Setter Property="Foreground" Value="White" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Padding" Value="1" />
