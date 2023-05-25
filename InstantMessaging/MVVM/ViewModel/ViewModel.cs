@@ -40,10 +40,10 @@ namespace InstantMessaging.MVVM.ViewModel
                 selectedContact = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedContact)));
 
-                if(isEditWindowOpen)
+                if (isEditWindowOpen)
                 {
                     var selectedContact = SelectedContact;
-                    if(selectedContact != null)
+                    if (selectedContact != null)
                     {
                         editContactWindow.OnSelectedContactChange(selectedContact);
                     }
@@ -51,7 +51,7 @@ namespace InstantMessaging.MVVM.ViewModel
             }
         }
         private EditContactWindow editContactWindow;
-        private bool isEditWindowOpen {  get; set; }
+        private bool isEditWindowOpen { get; set; }
 
         private string _message;
         public string Message
@@ -61,6 +61,34 @@ namespace InstantMessaging.MVVM.ViewModel
             {
                 _message = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Message)));
+            }
+        }
+
+        private string userFirstName;
+        public string UserFirstName
+        {
+            get { return userFirstName; }
+            set
+            {
+                if (userFirstName != value)
+                {
+                    userFirstName = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UserFirstName)));
+                }
+            }
+        }
+
+        private string userImageSource;
+        public string UserImageSource
+        {
+            get { return userImageSource; }
+            set 
+            {
+                if (userImageSource != value)
+                {
+                    userImageSource = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UserImageSource)));
+                }
             }
         }
 
@@ -125,6 +153,15 @@ namespace InstantMessaging.MVVM.ViewModel
             if (Settings.Default.AutoSaveEnabled)
             {
                 StartAutomaticSaving(Settings.Default.AutoSaveInterval);
+            }
+
+            try
+            {
+                UserFirstName = Settings.Default.FirstName;
+                UserImageSource = Settings.Default.Image;
+            } catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex.ToString());
             }
         }
 
@@ -219,6 +256,9 @@ namespace InstantMessaging.MVVM.ViewModel
                 Settings.Default.Birthdate = settingsWindow.Birthdate;
                 Settings.Default.Image = settingsWindow.ImagePath;
                 Settings.Default.Save();
+
+                UserFirstName = Settings.Default.FirstName;
+                UserImageSource = Settings.Default.Image;
             }
         }
 
@@ -334,6 +374,7 @@ namespace InstantMessaging.MVVM.ViewModel
             dt = new();
             dt.Interval = TimeSpan.FromSeconds(intervalInSeconds);
             dt.Tick += Dt_Tick;
+            ExportAutoSave(autoSaveFileName);
             dt.Start();
         }
 

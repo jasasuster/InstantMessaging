@@ -119,10 +119,10 @@
             <DockPanel Grid.Row="4" Style="{StaticResource UserInfoDockPanelStyle}">
                 <Ellipse Style="{StaticResource UserImageEllipseStyle}">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="{StaticResource User4Image}" />
+                        <ImageBrush ImageSource="{Binding UserImageSource}" />
                     </Ellipse.Fill>
                 </Ellipse>
-                <Label Content="Jaša" Style="{StaticResource UsernameLabel}" />
+                <Label Content="{Binding UserFirstName}" Style="{StaticResource UsernameLabel}" />
             </DockPanel>
         </Grid>
 
