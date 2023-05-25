@@ -13,6 +13,8 @@
     <BitmapImage x:Key="DeleteImage" UriSource="../Icons/delete.png" />
     <BitmapImage x:Key="EditImage" UriSource="../Icons/edit.png" />
     <BitmapImage x:Key="SettingsImage" UriSource="../Icons/settings.png" />
+    <BitmapImage x:Key="EmojiImage" UriSource="../Icons/emoji.png" />
+    <BitmapImage x:Key="SendImage" UriSource="../Icons/send.png" />
     <BitmapImage x:Key="User1Image" UriSource="../Images/user1.png" />
     <BitmapImage x:Key="User2Image" UriSource="../Images/user2.png" />
     <BitmapImage x:Key="User3Image" UriSource="../Images/user3.png" />
@@ -33,6 +35,9 @@
         <Setter Property="ResizeMode" Value="CanResizeWithGrip" />
     </Style>
 
+    <!--  Animations  -->
+
+
     <!--  Main Window Styles  -->
 
     <Style x:Key="MenuStyle" TargetType="Menu">
@@ -52,6 +57,29 @@
         <Setter Property="Foreground" Value="Gray" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Label.Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation
+                            Storyboard.TargetProperty="Opacity"
+                            From="0"
+                            To="1"
+                            Duration="0:0:1.5" />
+                        <StringAnimationUsingKeyFrames Storyboard.TargetProperty="Content" Duration="0:0:1.5">
+                            <DiscreteStringKeyFrame KeyTime="0:0:0" Value="C" />
+                            <DiscreteStringKeyFrame KeyTime="0:0:0.2" Value="Co" />
+                            <DiscreteStringKeyFrame KeyTime="0:0:0.4" Value="Con" />
+                            <DiscreteStringKeyFrame KeyTime="0:0:0.6" Value="Cont" />
+                            <DiscreteStringKeyFrame KeyTime="0:0:0.8" Value="Conta" />
+                            <DiscreteStringKeyFrame KeyTime="0:0:1" Value="Contac" />
+                            <DiscreteStringKeyFrame KeyTime="0:0:1.2" Value="Contact" />
+                            <DiscreteStringKeyFrame KeyTime="0:0:1.4" Value="Contacts" />
+                        </StringAnimationUsingKeyFrames>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
     </Style>
 
     <Style x:Key="ContactsSeparatorStyle" TargetType="Border">

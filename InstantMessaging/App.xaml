@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="/Templates/ChatMessage.xaml" />
                 <ResourceDictionary Source="/Templates/ToggleButtonStyle.xaml" />
                 <ResourceDictionary Source="/Themes/MainStyles.xaml" />
+                <ResourceDictionary Source="/Themes/UserControlStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
