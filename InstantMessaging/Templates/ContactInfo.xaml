@@ -1,4 +1,11 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:InstantMessaging"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <local:AgeConverter x:Key="AgeConverter" />
+
     <DataTemplate x:Key="ContactInfoTemplate">
         <Border
             Height="50"
@@ -39,6 +46,13 @@
             <DataTrigger Binding="{Binding Status}" Value="Offline">
                 <Setter TargetName="Status" Property="Fill" Value="red" />
             </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Birthdate, Converter={StaticResource AgeConverter}}" Value="True" />
+                    <Condition Binding="{Binding Status}" Value="Online" />
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="Status" Property="Fill" Value="Purple" />
+            </MultiDataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
 

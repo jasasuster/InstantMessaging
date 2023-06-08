@@ -188,7 +188,7 @@ namespace InstantMessaging.MVVM.Model
 
         public override string ToString()
         {
-            return String.Format("Username: {0}\nJoined: {1}\nStatus: {2}", Username, Joined.ToString("dd.MM.yyyy HH:mm"), Status);
+            return String.Format("Username: {0}\nJoined: {1}\nStatus: {2}\nBirthdate: {3}", Username, Joined.ToString("dd.MM.yyyy HH:mm"), Status, Birthdate.ToString("dd.MM.yyyy"));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

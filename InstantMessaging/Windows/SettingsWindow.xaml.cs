@@ -47,6 +47,7 @@ namespace InstantMessaging
                 Image = new BitmapImage(new Uri(Settings.Default.Image));
             }
             ErrorMessage = string.Empty;
+
             autoSaveToggleButton.IsChecked = Settings.Default.AutoSaveEnabled;
             intervalComboBox.SelectItemByTag(Settings.Default.AutoSaveInterval);
         }

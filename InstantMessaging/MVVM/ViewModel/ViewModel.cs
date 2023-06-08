@@ -129,9 +129,9 @@ namespace InstantMessaging.MVVM.ViewModel
                 // Create new
                 Contacts = new ObservableCollection<ContactModel>
                 {
-                    new ContactModel("user1", "User", "1", "user1@gmail.com", DateTime.Now, "./Images/user1.png"),
+                    new ContactModel("user1", "User", "1", "user1@gmail.com", new DateTime(2001, 1, 1), "./Images/user1.png"),
                     new ContactModel("user2", "User", "2", "user2@gmail.com", DateTime.Now, "./Images/user2.png"),
-                    new ContactModel("user3", "User", "3", "user3@gmail.com", DateTime.Now, "./Images/user3.png")
+                    new ContactModel("user3", "User", "3", "user3@gmail.com", new DateTime(2005, 6, 9), "./Images/user3.png")
                 };
             }            
 
